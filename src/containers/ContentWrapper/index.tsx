@@ -1,6 +1,7 @@
-import RoutesWrapper from "./../../routes/index";
+import React from "react";
+import RoutesWrapper from "../../routes/RoutersWrapper/index";
 
-function ContentWrapper() {
+const ContentWrapper:React.FC = ()=> {
   return (
     <div>
       <RoutesWrapper />

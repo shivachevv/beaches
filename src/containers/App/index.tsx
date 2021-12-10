@@ -1,12 +1,19 @@
+import React from "react";
 import "./App.css";
-import ContentWrapper from "./../../routes/index";
+import ContentWrapper from "../../routes/RoutersWrapper/index";
+import Navbar from "./../../components/common/Navbar/index";
 
-function App() {
+type Props = {};
+
+const App: React.FC<Props> = (props: Props) => {
   return (
-    // TODO: <Header />
-    <ContentWrapper />
-    // TODO: <Footer />
+    <div>
+      {/* TODO: <Header /> */}
+      <Navbar />
+      <ContentWrapper />
+      {/* TODO: <Footer /> */}
+    </div>
   );
-}
+};
 
 export default App;
