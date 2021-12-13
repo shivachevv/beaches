@@ -1,0 +1,115 @@
+{
+    "users": [{
+            "id": 1,
+            "email": "admin@gmail.com",
+            "role": "admin",
+            "firstName": "Admin 1",
+            "lastName": "Admin 2"
+        },
+        {
+            "id": 2,
+            "email": "beach_admin@gmail.com",
+            "role": "beach_admin",
+            "firstName": "Beach Admin 1",
+            "lastName": "Beach Admin 2"
+        },
+        {
+            "id": 3,
+            "email": "tourist@gmail.com",
+            "role": "tourist",
+            "firstName": "Tourist 1",
+            "lastName": "Tourist 2"
+        }
+    ],
+    "beaches": [{
+            "id": 1,
+            "name": "Marina Dinevi",
+            "description": "Marina Dinevi is a yacht harbor and a resort complex in St Vlas village. It is a destination for the rich and famous, with all kinds of luxury hotels, spa centers, and restaurants. The sandy beach has been granted a Blue Flag for its clean waters.",
+            "coordinates": {
+                "lat": 42.70755417098132,
+                "lng": 27.766336575264464
+            },
+            "capacity": 100,
+            "prices": {
+                "seat": 10,
+                "umbrella": 10
+            },
+            "slug": "dinevi_marina"
+        },
+        {
+            "id": 2,
+            "name": "Sunny Beach",
+            "description": "Sunny Beach is the summer party hub of the Bulgarian Black Sea coast. It is popular with European tourists for the variety of night clubs it offers. There is plenty to do during the day as well. The sandy beach offers all kinds of water sports and beach bars with world class DJs performances.",
+            "coordinates": {
+                "lat": 42.689565895332144,
+                "lng": 27.713209825522217
+            },
+            "capacity": 120,
+            "prices": {
+                "seat": 5,
+                "umbrella": 10
+            },
+            "slug": "sunny_beach"
+        },
+        {
+            "id": 3,
+            "name": "Harmanite Beach, Sozopol",
+            "description": "Another Blue Flag beach preferred by families with children as the water is calm and not very deep. With a lot of hotels and restaurants surrounding it, Harmanite Beach tends to get overcrowded in the high season.",
+            "coordinates": {
+                "lat": 42.41402229208647,
+                "lng": 27.701978027363467
+            },
+            "capacity": 80,
+            "prices": {
+                "seat": 8,
+                "umbrella": 8
+            },
+            "slug": "sozopol"
+        },
+        {
+            "id": 4,
+            "name": "Pomorie Beach",
+            "description": "One of the cleanest beaches on the Black Sea coast, Pomorie is frequented mostly by middle age holidaymakers so you can expect less noise and a smaller choice of bars and night clubs.",
+            "coordinates": {
+                "lat": 42.56681659986213,
+                "lng": 27.640173218861428
+            },
+            "capacity": 100,
+            "prices": {
+                "seat": 10,
+                "umbrella": 10
+            },
+            "slug": "pomorie"
+        },
+        {
+            "id": 5,
+            "name": "Smokinya Beach",
+            "description": "Located close to Sozopol, this beach is a favorite summer spot for people who love camping. Bring your own tent or hire a camper van at the beach. The water is calm and shallow and there are a couple of beach bars. Smokinya is popular with young people and families.",
+            "coordinates": {
+                "lat": 42.39105801135959,
+                "lng": 27.705678155449867
+            },
+            "capacity": 140,
+            "prices": {
+                "seat": 7,
+                "umbrella": 5
+            },
+            "slug": "smokinia"
+        },
+        {
+            "id": 6,
+            "name": "Golden Sands Beach",
+            "description": "Another Blue Flag beach, situated close to a nature reserve. Nevertheless, it feels more like a party zone as it is very popular with young people. As it is a bit further to the north than the other beaches the temperatures of the water are usually a bit lower than elsewhere.",
+            "coordinates": {
+                "lat": 43.30425027988872,
+                "lng": 28.052552266797164
+            },
+            "capacity": 70,
+            "prices": {
+                "seat": 15,
+                "umbrella": 12
+            },
+            "slug": "goldstrand"
+        }
+    ]
+}
