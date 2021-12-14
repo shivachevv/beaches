@@ -30,6 +30,7 @@ const authSlice = createSlice({
       const users:User[] = db.users
       const loggedUser = users.find(user => user.email === payload.email)
       state.currentUser = loggedUser
+      state.isAuthenticated = true
     },
 
     logout: (state) => {
@@ -37,9 +38,14 @@ const authSlice = createSlice({
       state.currentUser = undefined
       location.reload()
     },
+
+    setIsAuthenticated: (state) => {
+      const isLogged = localStorage.getItem(localStorageKey)
+      state.isAuthenticated = !!isLogged
+    },
   },
 })
 
-export const { login, logout } = authSlice.actions
+export const { login, logout, setIsAuthenticated } = authSlice.actions
 
 export default authSlice.reducer
