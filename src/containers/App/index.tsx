@@ -4,6 +4,7 @@ import ContentWrapper from "../../routes/RoutersWrapper/index";
 import Navbar from "./../../components/common/Navbar/index";
 import { setIsAuthenticated } from "../../store/slices/auth";
 import { useAppDispatch } from "../../store/hooks";
+import { CssBaseline } from "@mui/material";
 
 type Props = {};
 
@@ -13,7 +14,7 @@ const App: React.FC<Props> = (props: Props) => {
   
   return (
     <div>
-      {/* TODO: <Header /> */}
+      <CssBaseline/>
       <Navbar />
       <ContentWrapper />
       {/* TODO: <Footer /> */}
