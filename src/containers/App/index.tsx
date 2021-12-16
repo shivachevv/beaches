@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import ContentWrapper from "../../routes/RoutersWrapper/index";
 import Navbar from "./../../components/common/Navbar/index";
 import { setIsAuthenticated } from "../../store/slices/auth";

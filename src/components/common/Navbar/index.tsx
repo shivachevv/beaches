@@ -1,3 +1,4 @@
+import * as React from "react";
 import {
   AppBar,
   Box,
@@ -12,15 +13,16 @@ import {
   useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import * as React from "react";
 import { Link } from "react-router-dom";
 import logo from "../../../assets/images/beaches_logo.png";
-import styles from "./navbar.module.scss";
-import { useEffect } from "react";
+import styles from "./styles";
+import { useStyles } from "../../../utils/helpers";
 
 type Props = {};
 
 const Navbar: React.FC<Props> = (props: Props) => {
+  const classes = useStyles(styles);
+
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const menuPosition = {
@@ -44,6 +46,10 @@ const Navbar: React.FC<Props> = (props: Props) => {
     {
       path: "/my-reservations",
       name: "My Reservations",
+    },
+    {
+      path: "/login",
+      name: "Login",
     },
   ];
   return (
@@ -69,6 +75,7 @@ const Navbar: React.FC<Props> = (props: Props) => {
             flexGrow: 1,
             display: { xs: "none", sm: "flex" },
           }}
+          className={classes.root}
         >
           {navLinks.map((page) => (
             <Link to={page.path} key={page.path}>
