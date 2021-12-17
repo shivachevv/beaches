@@ -17,6 +17,9 @@ export interface AuthState {
     error: string,
     loading: boolean,
   }
+export interface CommonState {
+    navLinks: NavLink[]
+  }
 
   export interface RootState {
     auth: AuthState
@@ -25,4 +28,8 @@ export interface AuthState {
 export interface LoginData {
     email: string,
     password: string,
+  }
+export interface NavLink {
+    path: string,
+    name: string,
   }

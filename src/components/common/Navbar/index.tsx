@@ -17,12 +17,14 @@ import { Link } from "react-router-dom";
 import logo from "../../../assets/images/beaches_logo.png";
 import styles from "./styles";
 import { useStyles } from "../../../utils/helpers";
+import { NavLinksContext } from "../../../contexts/NavLinksProvider";
 
 type Props = {};
 
 const Navbar: React.FC<Props> = (props: Props) => {
-  const classes = useStyles(styles);
+  const navLinks = React.useContext (NavLinksContext)
 
+  const classes = useStyles(styles);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const menuPosition = {
@@ -34,24 +36,15 @@ const Navbar: React.FC<Props> = (props: Props) => {
     setIsMobileNavOpen(state);
   };
 
-  const navLinks = [
-    {
-      path: "/",
-      name: "Home",
-    },
-    {
-      path: "/beaches",
-      name: "Beaches",
-    },
-    {
-      path: "/my-reservations",
-      name: "My Reservations",
-    },
-    {
-      path: "/login",
-      name: "Login",
-    },
-  ];
+  const renderNavLinks = ({ isMobile }: { isMobile: boolean }) =>
+    navLinks.map((page) => (
+      <Link to={page.path} key={page.path} className={classes.link}>
+        <Button sx={{ my: 2, color: isMobile ? "" : "white" }}>
+          {page.name}
+        </Button>
+      </Link>
+    ));
+
   return (
     <AppBar
       position="fixed"
@@ -75,13 +68,8 @@ const Navbar: React.FC<Props> = (props: Props) => {
             flexGrow: 1,
             display: { xs: "none", sm: "flex" },
           }}
-          className={classes.root}
         >
-          {navLinks.map((page) => (
-            <Link to={page.path} key={page.path}>
-              <Button sx={{ my: 2, color: "white" }}>{page.name}</Button>
-            </Link>
-          ))}
+          {renderNavLinks({ isMobile: false })}
         </Box>
         <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
           <IconButton
@@ -99,16 +87,7 @@ const Navbar: React.FC<Props> = (props: Props) => {
             open={isMobileNavOpen}
             onClose={() => toggleMenu({ state: false })}
           >
-            {navLinks.map((page) => (
-              <Link to={page.path} key={page.path}>
-                <Button
-                  onClick={() => toggleMenu({ state: false })}
-                  sx={{ my: 2 }}
-                >
-                  {page.name}
-                </Button>
-              </Link>
-            ))}
+            {renderNavLinks({ isMobile: true })}
           </Drawer>
         </Box>
       </Toolbar>
