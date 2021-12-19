@@ -10,16 +10,17 @@ const RoutesWrapper: React.FC<Props> = (props: Props) => {
   return (
     <Routes>
       {/* Private Routes */}
-      <Route
+      {/* <Route
         path="/"
         element={
           <PrivateRoute>
             <Home />
           </PrivateRoute>
         }
-      />
+      /> */}
 
       {/* Public Routes */}
+      <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
     </Routes>
   );

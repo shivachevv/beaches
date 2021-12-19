@@ -5,8 +5,6 @@ import {
   Button,
   Drawer,
   IconButton,
-  Menu,
-  MenuItem,
   Toolbar,
   Typography,
   useMediaQuery,
@@ -47,7 +45,7 @@ const Navbar: React.FC<Props> = (props: Props) => {
 
   return (
     <AppBar
-      position="fixed"
+      position="sticky"
       color="primary"
       sx={{ top: menuPosition.top, bottom: menuPosition.bottom }}
     >
@@ -74,7 +72,6 @@ const Navbar: React.FC<Props> = (props: Props) => {
         <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
           <IconButton
             size="large"
-            aria-label="account of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
             onClick={() => toggleMenu({ state: true })}

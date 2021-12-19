@@ -1,0 +1,24 @@
+.container {
+    background-image: url("../../assets/images/3.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    padding: 50px 0;
+    box-shadow: 0px 14px 20px 0px rgb(0 0 0 / 43%);
+
+    .content {
+        padding: 50px;
+        background-color: #538e8a69;
+        
+
+        h1, h2 {
+            color: white;
+        }
+
+        .buttons {
+            border-top: 3px solid white;
+            margin-top: 10px;
+        }
+
+    }
+}
