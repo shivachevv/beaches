@@ -1,4 +1,4 @@
-import { ApiInterface, Database, DatabaseModel } from "../interfaces";
+import { ApiInterface, Beach, Database, DatabaseModel, User } from "../interfaces";
 import db from './db/db.json'
 
 export class Api implements ApiInterface {
@@ -14,6 +14,10 @@ export class Api implements ApiInterface {
 
   find({ model, queryKey, queryValue }:{ model:DatabaseModel, queryKey:string, queryValue: string }) {
     return this.db[model].filter(item => item[queryKey] === queryValue)
+  }
+
+  findAll({ model }:{ model:DatabaseModel }):Array<any> {
+    return this.db[model]
   }
 
   // async create(data, params?: ) {
