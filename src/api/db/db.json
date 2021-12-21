@@ -34,7 +34,8 @@
                 "seat": 10,
                 "umbrella": 10
             },
-            "slug": "dinevi_marina"
+            "slug": "dinevi_marina",
+            "beachAdminId": 2
         },
         {
             "id": 2,
@@ -49,7 +50,8 @@
                 "seat": 5,
                 "umbrella": 10
             },
-            "slug": "sunny_beach"
+            "slug": "sunny_beach",
+            "beachAdminId": 2
         },
         {
             "id": 3,
@@ -64,7 +66,8 @@
                 "seat": 8,
                 "umbrella": 8
             },
-            "slug": "sozopol"
+            "slug": "sozopol",
+            "beachAdminId": 2
         },
         {
             "id": 4,
@@ -79,7 +82,8 @@
                 "seat": 10,
                 "umbrella": 10
             },
-            "slug": "pomorie"
+            "slug": "pomorie",
+            "beachAdminId": 2
         },
         {
             "id": 5,
@@ -94,7 +98,8 @@
                 "seat": 7,
                 "umbrella": 5
             },
-            "slug": "smokinia"
+            "slug": "smokinia",
+            "beachAdminId": 2
         },
         {
             "id": 6,
@@ -109,7 +114,8 @@
                 "seat": 15,
                 "umbrella": 12
             },
-            "slug": "goldstrand"
+            "slug": "goldstrand",
+            "beachAdminId": 2
         }
     ]
 }
