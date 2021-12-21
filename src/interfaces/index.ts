@@ -1,4 +1,4 @@
-import { Roles } from '../utils/enums'
+import { DatabaseModels, Roles } from '../utils/enums'
 
 type Role = Roles.ADMIN | Roles.BEACH_ADMIN | Roles.TOURIST
 
@@ -33,3 +33,15 @@ export interface NavLink {
     path: string,
     name: string,
   }
+
+  export interface Database {
+    users: User[],
+    // TODO: interface Beach
+    beaches: Array<any>,
+  }
+  export interface ApiInterface {
+    db: Database,
+  }
+
+  export type DatabaseModel = DatabaseModels.Users | DatabaseModels.Beaches
+

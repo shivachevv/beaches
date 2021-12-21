@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AuthState, LoginData, User } from '../../interfaces'
 import { dummyPassword, localStorageKey, errorMessages } from '../../utils/constants'
 import type { RootState } from '../../interfaces'
-import db from '../../db/db.json'
+import fakeApi from '../../api/fakeApi'
+import { DatabaseModels } from '../../utils/enums'
 
 
 
@@ -27,8 +28,7 @@ const authSlice = createSlice({
         return
       }
       localStorage.setItem(localStorageKey, payload.email)
-      const users:User[] = db.users
-      const loggedUser = users.find(user => user.email === payload.email)
+      const [loggedUser] = fakeApi.find({model: DatabaseModels.Users, queryKey: "email", queryValue:payload.email})
       state.currentUser = loggedUser
       state.isAuthenticated = true
     },
