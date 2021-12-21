@@ -17,7 +17,6 @@ const LoginLandingPage: React.FC<Props> = (props: Props) => {
             <Button
               sx={{ my: 2, py: 2, px: 6 }}
               variant="contained"
-              color="info"
             >
               Login
             </Button>
