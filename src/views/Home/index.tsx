@@ -2,17 +2,31 @@ import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import { PageTitles } from "../../utils/enums";
 import { setPageTitle, useStyles } from "../../utils/helpers";
-import { Backdrop, Box, Container, Fade, Modal } from "@mui/material";
+import {
+  Autocomplete,
+  Backdrop,
+  Box,
+  Container,
+  Fade,
+  Modal,
+  TextField,
+} from "@mui/material";
 import styles from "./styles";
-import { useAppSelector } from "../../store/hooks";
+import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import ModalComponent from "./../../components/common/Modal/index";
 import LoginLandingPage from "../../components/LoginLandingPage";
+import { setBeaches } from "../../store/slices/beaches";
+import { Beach } from "../../interfaces";
 
 type Props = {};
 
 const Home: React.FC<Props> = (props: Props) => {
-  const classes = useStyles(styles);
+  const dispatch = useAppDispatch();
+  dispatch(setBeaches());
   const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const { beaches } = useAppSelector((state) => state.beaches);
+
+  const classes = useStyles(styles);
 
   useEffect(() => {
     setPageTitle(PageTitles.HOME);
@@ -43,6 +57,15 @@ const Home: React.FC<Props> = (props: Props) => {
   return (
     <Container className={classes.container} disableGutters>
       {renderLoginModal()}
+      <div>
+        <Autocomplete
+          getOptionLabel={(option: Beach) => option.name}
+          disablePortal
+          options={beaches || []}
+          sx={{ width: 300 }}
+          renderInput={(params) => <TextField {...params} label="Beaches" />}
+        />
+      </div>
     </Container>
   );
 };
