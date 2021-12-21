@@ -9,6 +9,26 @@ export interface User {
     firstName: string,
     lastName: string
   }
+export interface Beach {
+    id:number,
+    name:string,
+    description: string,
+    coordinates: Coordinates,
+    capacity: number
+    prices: BeachPrices
+    slug: string
+    beachAdminId: number
+  }
+
+export interface Coordinates {
+    lat:number,
+    lng:string,
+  }
+export interface BeachPrices {
+    seat:number,
+    umbrella:string,
+  }
+
 
 
 export interface AuthState {
@@ -17,12 +37,17 @@ export interface AuthState {
     error: string,
     loading: boolean,
   }
+
+export interface BeachesState {
+    beaches: Beach[] | undefined,
+  }
 export interface CommonState {
     navLinks: NavLink[]
   }
 
   export interface RootState {
-    auth: AuthState
+    auth: AuthState,
+    beaches: BeachesState
   }
 
 export interface LoginData {
