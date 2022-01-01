@@ -19,6 +19,7 @@ import LoginLandingPage from "../../components/LoginLandingPage";
 import { setBeaches } from "../../store/slices/beaches";
 import { Beach } from "../../interfaces";
 import SelectedBeach from "../../components/SelectedBeach";
+import BeachMap from "../../components/BeachMap";
 
 type Props = Record<string, unknown>;
 
@@ -63,7 +64,7 @@ const Home: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <Container className={classes.container} disableGutters>
+    <Container className={classes.container} disableGutters sx={{ pt: 2 }}>
       {/* {renderLoginModal()} */}
       <div>
         <Autocomplete
@@ -80,6 +81,7 @@ const Home: React.FC<Props> = (props: Props) => {
       ) : (
         ""
       )}
+      <BeachMap />
     </Container>
   );
 };
