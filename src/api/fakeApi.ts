@@ -1,4 +1,4 @@
-import { ApiInterface, Beach, Database, DatabaseModel, User } from "../interfaces";
+import { ApiInterface, Database, DatabaseModel } from "../interfaces";
 import db from './db/db.json'
 
 export class Api implements ApiInterface {
