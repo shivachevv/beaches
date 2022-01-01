@@ -30,12 +30,14 @@
                 "lng": 27.766336575264464
             },
             "capacity": 100,
+            "available": 50,
             "prices": {
                 "seat": 10,
                 "umbrella": 10
             },
             "slug": "dinevi_marina",
-            "beachAdminId": 2
+            "beachAdminId": 2,
+            "flag": "green"
         },
         {
             "id": 2,
@@ -46,12 +48,14 @@
                 "lng": 27.713209825522217
             },
             "capacity": 120,
+            "available": 50,
             "prices": {
                 "seat": 5,
                 "umbrella": 10
             },
             "slug": "sunny_beach",
-            "beachAdminId": 2
+            "beachAdminId": 2,
+            "flag": "green"
         },
         {
             "id": 3,
@@ -62,12 +66,14 @@
                 "lng": 27.701978027363467
             },
             "capacity": 80,
+            "available": 50,
             "prices": {
                 "seat": 8,
                 "umbrella": 8
             },
             "slug": "sozopol",
-            "beachAdminId": 2
+            "beachAdminId": 2,
+            "flag": "green"
         },
         {
             "id": 4,
@@ -78,12 +84,14 @@
                 "lng": 27.640173218861428
             },
             "capacity": 100,
+            "available": 50,
             "prices": {
                 "seat": 10,
                 "umbrella": 10
             },
             "slug": "pomorie",
-            "beachAdminId": 2
+            "beachAdminId": 2,
+            "flag": "green"
         },
         {
             "id": 5,
@@ -94,12 +102,14 @@
                 "lng": 27.705678155449867
             },
             "capacity": 140,
+            "available": 50,
             "prices": {
                 "seat": 7,
                 "umbrella": 5
             },
             "slug": "smokinia",
-            "beachAdminId": 2
+            "beachAdminId": 2,
+            "flag": "green"
         },
         {
             "id": 6,
@@ -110,12 +120,14 @@
                 "lng": 28.052552266797164
             },
             "capacity": 70,
+            "available": 50,
             "prices": {
                 "seat": 15,
                 "umbrella": 12
             },
             "slug": "goldstrand",
-            "beachAdminId": 2
+            "beachAdminId": 2,
+            "flag": "green"
         }
     ]
 }
