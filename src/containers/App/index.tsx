@@ -3,24 +3,27 @@ import ContentWrapper from "../../routes/RoutersWrapper/index";
 import Navbar from "./../../components/common/Navbar/index";
 import { setIsAuthenticated } from "../../store/slices/auth";
 import { useAppDispatch } from "../../store/hooks";
-import { CssBaseline } from "@mui/material";
+import { Container, CssBaseline } from "@mui/material";
 import NavLinksProvider from "../../contexts/NavLinksProvider";
+import { useStyles } from "../../utils/helpers";
+import styles from "./styles";
 
-type Props = {};
+type Props = Record<string, unknown>;
 
 const App: React.FC<Props> = (props: Props) => {
-  const dispatch = useAppDispatch()
-  dispatch(setIsAuthenticated())
-  
+  const classes = useStyles(styles);
+  const dispatch = useAppDispatch();
+  dispatch(setIsAuthenticated());
+
   return (
-    <div>
+    <Container className={classes.container} disableGutters maxWidth={false}>
       <NavLinksProvider>
-      <CssBaseline/>
-      <Navbar />
-      <ContentWrapper />
-      {/* TODO: <Footer /> */}
+        <CssBaseline />
+        <Navbar />
+        <ContentWrapper />
+        {/* TODO: <Footer /> */}
       </NavLinksProvider>
-    </div>
+    </Container>
   );
 };
 

@@ -4,22 +4,23 @@ import Home from "../../views/Home";
 import Login from "../../views/Login";
 import PrivateRoute from "../guards/PrivateRoute";
 
-type Props = {};
+type Props = Record<string, unknown>;
 
 const RoutesWrapper: React.FC<Props> = (props: Props) => {
   return (
     <Routes>
       {/* Private Routes */}
-      <Route
+      {/* <Route
         path="/"
         element={
           <PrivateRoute>
             <Home />
           </PrivateRoute>
         }
-      />
+      /> */}
 
       {/* Public Routes */}
+      <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
     </Routes>
   );

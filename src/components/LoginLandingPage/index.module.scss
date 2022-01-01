@@ -1,0 +1,37 @@
+@import '../../styles/variables.scss';
+
+.container {
+    background-image: url("../../assets/images/3.jpg");
+    background-size: cover;
+    background-position: center;
+    height: 100%;
+    box-shadow: 0px 14px 20px 0px rgb(0 0 0 / 43%);
+
+    .content {
+        padding: 100px;
+        background-color: #538e8a69;
+        height: 100vh;
+
+        h1 {
+            margin: 0 0 50px 0;
+            color: #fff;
+        }
+
+        h2 {
+            color: #fff;
+        }
+
+        .buttons {
+            border-top: 3px solid white;
+            margin-top: 10px;
+            a {
+                text-decoration: none;
+                button {
+                    background-color: $darkyellow;
+                    color: $darkgreen;
+                }
+            }
+        }
+
+    }
+}

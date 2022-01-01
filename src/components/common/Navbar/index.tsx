@@ -5,8 +5,6 @@ import {
   Button,
   Drawer,
   IconButton,
-  Menu,
-  MenuItem,
   Toolbar,
   Typography,
   useMediaQuery,
@@ -19,7 +17,7 @@ import styles from "./styles";
 import { useStyles } from "../../../utils/helpers";
 import { NavLinksContext } from "../../../contexts/NavLinksProvider";
 
-type Props = {};
+type Props = Record<string, unknown>;
 
 const Navbar: React.FC<Props> = (props: Props) => {
   const navLinks = React.useContext (NavLinksContext)
@@ -47,7 +45,7 @@ const Navbar: React.FC<Props> = (props: Props) => {
 
   return (
     <AppBar
-      position="fixed"
+      position="sticky"
       color="primary"
       sx={{ top: menuPosition.top, bottom: menuPosition.bottom }}
     >
@@ -74,7 +72,6 @@ const Navbar: React.FC<Props> = (props: Props) => {
         <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
           <IconButton
             size="large"
-            aria-label="account of current user"
             aria-controls="menu-appbar"
             aria-haspopup="true"
             onClick={() => toggleMenu({ state: true })}
