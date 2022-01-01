@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import styles from "./index.module.scss";
 import { CssBaseline } from "@mui/material";
 
-type Props = {};
+type Props = Record<string, unknown>;
 
 const LoginLandingPage: React.FC<Props> = (props: Props) => {
   return (

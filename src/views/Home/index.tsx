@@ -10,6 +10,7 @@ import {
   Fade,
   Modal,
   TextField,
+  Zoom,
 } from "@mui/material";
 import styles from "./styles";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -17,13 +18,16 @@ import ModalComponent from "./../../components/common/Modal/index";
 import LoginLandingPage from "../../components/LoginLandingPage";
 import { setBeaches } from "../../store/slices/beaches";
 import { Beach } from "../../interfaces";
+import SelectedBeach from "../../components/SelectedBeach";
 
-type Props = {};
+type Props = Record<string, unknown>;
 
 const Home: React.FC<Props> = (props: Props) => {
   const dispatch = useAppDispatch();
   dispatch(setBeaches());
-  const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const { isAuthenticated, currentUser } = useAppSelector(
+    (state) => state.auth
+  );
   const { beaches } = useAppSelector((state) => state.beaches);
 
   const classes = useStyles(styles);
@@ -40,7 +44,6 @@ const Home: React.FC<Props> = (props: Props) => {
   const [loginModalOpen, setLoginModalOpen] = useState(false);
   const handleModalOpen = () => setLoginModalOpen(true);
   const handleModalClose = () => setLoginModalOpen(false);
-
   const renderLoginModal = () => {
     return (
       <ModalComponent
@@ -54,18 +57,29 @@ const Home: React.FC<Props> = (props: Props) => {
     );
   };
 
+  const [selectedBeach, setSelectedBeach] = useState<Beach | null>(null);
+  const reserve = (beach: Beach | null): void => {
+    console.log(beach);
+  };
+
   return (
     <Container className={classes.container} disableGutters>
-      {renderLoginModal()}
+      {/* {renderLoginModal()} */}
       <div>
         <Autocomplete
           getOptionLabel={(option: Beach) => option.name}
+          onChange={(_, value) => setSelectedBeach(value)}
           disablePortal
           options={beaches || []}
           sx={{ width: 300 }}
           renderInput={(params) => <TextField {...params} label="Beaches" />}
         />
       </div>
+      {selectedBeach ? (
+        <SelectedBeach beach={selectedBeach} reserve={reserve} />
+      ) : (
+        ""
+      )}
     </Container>
   );
 };

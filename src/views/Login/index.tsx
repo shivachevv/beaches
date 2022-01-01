@@ -4,7 +4,7 @@ import { login, logout } from "../../store/slices/auth";
 import { useAppDispatch } from "../../store/hooks";
 import { dummyPassword } from "../../utils/constants";
 
-type Props = {};
+type Props = Record<string, unknown>;
 
 const Navbar: React.FC = (props: Props) => {
   const dispatch = useAppDispatch();

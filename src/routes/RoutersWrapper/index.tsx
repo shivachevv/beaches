@@ -4,7 +4,7 @@ import Home from "../../views/Home";
 import Login from "../../views/Login";
 import PrivateRoute from "../guards/PrivateRoute";
 
-type Props = {};
+type Props = Record<string, unknown>;
 
 const RoutesWrapper: React.FC<Props> = (props: Props) => {
   return (

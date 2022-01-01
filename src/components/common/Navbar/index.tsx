@@ -17,7 +17,7 @@ import styles from "./styles";
 import { useStyles } from "../../../utils/helpers";
 import { NavLinksContext } from "../../../contexts/NavLinksProvider";
 
-type Props = {};
+type Props = Record<string, unknown>;
 
 const Navbar: React.FC<Props> = (props: Props) => {
   const navLinks = React.useContext (NavLinksContext)

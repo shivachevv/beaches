@@ -8,7 +8,7 @@ import NavLinksProvider from "../../contexts/NavLinksProvider";
 import { useStyles } from "../../utils/helpers";
 import styles from "./styles";
 
-type Props = {};
+type Props = Record<string, unknown>;
 
 const App: React.FC<Props> = (props: Props) => {
   const classes = useStyles(styles);
