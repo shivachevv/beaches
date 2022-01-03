@@ -7,7 +7,7 @@ import { DatabaseModels } from '../../utils/enums'
 
 
 
-export const initialState: AuthState = {
+export const INITIAL_STATE: AuthState = { // lets use const naming convention, const names should all caps with _ devider -> INITIAL_STATE 
     currentUser: undefined,
     isAuthenticated: false,
     error: '',
@@ -20,7 +20,7 @@ export const initialState: AuthState = {
 
 const authSlice = createSlice({
   name: 'auth',
-  initialState,
+  initialState: INITIAL_STATE,
   reducers: {
     login: (state, { payload }: PayloadAction<LoginData>) => {
       if (payload.password !== dummyPassword) {

@@ -48,12 +48,17 @@ export const getBeachAvailabilityColor = ({
     return { bgcolor: noDataColor, color: noDataColor };
   }
 
+  const AVAILABILITY_PERCENTAGE_COLOR = { // if we want to use numbers its good to set them in miningfull variables
+    GREEN: 33,
+    YELLOW: 66
+  }
+
   const freePercentage = (available / capacity) * 100;
 
-  if (freePercentage <= 33) {
+  if (freePercentage <= AVAILABILITY_PERCENTAGE_COLOR.GREEN) {
     return { bgcolor: "green", color: "white" };
   }
-  if (freePercentage > 33 && freePercentage <= 66) {
+  if (freePercentage > AVAILABILITY_PERCENTAGE_COLOR.GREEN && freePercentage <= AVAILABILITY_PERCENTAGE_COLOR.YELLOW) {
     return { bgcolor: "yellow", color: "black" };
   }
   return { bgcolor: "red", color: "white" };

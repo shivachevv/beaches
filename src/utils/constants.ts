@@ -7,3 +7,5 @@ export const errorMessages = {
 };
 
 export const noDataColor = "grey";
+
+// lets use const naming convention, const names should all caps with _ devider  

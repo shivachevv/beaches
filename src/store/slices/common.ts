@@ -3,7 +3,7 @@ import { CommonState } from '../../interfaces'
 
 
 
-export const initialState: CommonState = {
+export const initialState: CommonState = { // can we extract this object in /utils/constants we have the same object in NavLinksProvider
     navLinks: [
       {
         path: "/",

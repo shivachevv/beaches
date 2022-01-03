@@ -1,23 +1,27 @@
-import { ApiInterface, Database, DatabaseModel } from "../interfaces";
+import { Database, DatabaseModel } from "../interfaces";
 import db from './db/db.json'
 
-export class Api implements ApiInterface {
-  db: Database;
+export class Api {
+  public static db: Database; // we can use Singleton pattern here, for our current use we can use the previous code 
+                              // but if we want to open connections to the DB in the constructor every instance of Api class
+                              // will open a new connection to the DB and we want to avoid that.
     
   constructor(db: Database) {
-    this.db = db;
+    if (!Api.db) {
+      Api.db = db;
+    }
   }
 
   get({ model, id }:{ model:DatabaseModel, id:string }) {
-    return this.db[model].filter(item => item.id === id)[0]
+    return Api.db[model].filter(item => item.id === id)[0]
   }
 
   find({ model, queryKey, queryValue }:{ model:DatabaseModel, queryKey:string, queryValue: string }) {
-    return this.db[model].filter(item => item[queryKey] === queryValue)
+    return Api.db[model].filter(item => item[queryKey] === queryValue)
   }
 
   findAll({ model }:{ model:DatabaseModel }):Array<any> {
-    return this.db[model]
+    return Api.db[model]
   }
 
   // async create(data, params?: ) {
