@@ -20,6 +20,7 @@ import { setBeaches } from "../../store/slices/beaches";
 import { Beach } from "../../interfaces";
 import SelectedBeach from "../../components/SelectedBeach";
 import BeachMap from "../../components/BeachMap";
+import backgroundImage from "../../assets/images/2.jpg";
 
 type Props = Record<string, unknown>;
 
@@ -64,24 +65,44 @@ const Home: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <Container className={classes.container} disableGutters sx={{ pt: 2 }}>
+    <Container
+      className={classes.container}
+      disableGutters
+      sx={{
+        pt: 2,
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        boxShadow: "inset 0 0 0 2000px rgb(255 255 255 / 49%)",
+      }}
+    >
       {/* {renderLoginModal()} */}
-      <div>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+        }}
+      >
         <Autocomplete
           getOptionLabel={(option: Beach) => option.name}
           onChange={(_, value) => setSelectedBeach(value)}
           disablePortal
           options={beaches || []}
-          sx={{ width: 300 }}
+          sx={{ width: 400 }}
           renderInput={(params) => <TextField {...params} label="Beaches" />}
         />
-      </div>
+      </Box>
       {selectedBeach ? (
         <SelectedBeach beach={selectedBeach} reserve={reserve} />
       ) : (
         ""
       )}
-      <BeachMap />
+      <BeachMap
+        mapType={google.maps.MapTypeId.ROADMAP}
+        mapTypeControl={true}
+        beaches={beaches || []}
+        reserve={reserve}
+      />
     </Container>
   );
 };
