@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import * as React from "react";
 import { login, logout } from "../../store/slices/auth";
 import { useAppDispatch } from "../../store/hooks";
-import { dummyPassword } from "../../utils/constants";
+import { DUMMY_PASSWORD } from "../../utils/constants";
 
 type Props = Record<string, unknown>;
 
@@ -12,7 +12,7 @@ const Navbar: React.FC = (props: Props) => {
     dispatch(
       login({
         email: "admin@gmail.com",
-        password: dummyPassword,
+        password: DUMMY_PASSWORD,
       })
     );
   };

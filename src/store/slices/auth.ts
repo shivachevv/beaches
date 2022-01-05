@@ -1,51 +1,56 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AuthState, LoginData, User } from '../../interfaces'
-import { dummyPassword, localStorageKey, errorMessages } from '../../utils/constants'
-import type { RootState } from '../../interfaces'
-import fakeApi from '../../api/fakeApi'
-import { DatabaseModels } from '../../utils/enums'
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AuthState, LoginData, User } from "../../interfaces";
+import {
+  DUMMY_PASSWORD,
+  LOCAL_STORAGE_KEY,
+  ERROR_MESSAGES,
+} from "../../utils/constants";
+import type { RootState } from "../../interfaces";
+import fakeApi from "../../api/fakeApi";
+import { DatabaseModels } from "../../utils/enums";
 
-
-
-export const initialState: AuthState = {
-    currentUser: undefined,
-    isAuthenticated: false,
-    error: '',
-    loading: true,
-  }
-
+export const INITIAL_STATE: AuthState = {
+  currentUser: undefined,
+  isAuthenticated: false,
+  error: "",
+  loading: true,
+};
 
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.counter.value
 
 const authSlice = createSlice({
-  name: 'auth',
-  initialState,
+  name: "auth",
+  initialState: INITIAL_STATE,
   reducers: {
     login: (state, { payload }: PayloadAction<LoginData>) => {
-      if (payload.password !== dummyPassword) {
-        state.error = errorMessages.wrongPassword
-        return
+      if (payload.password !== DUMMY_PASSWORD) {
+        state.error = ERROR_MESSAGES.WRONG_PASSWORD;
+        return;
       }
-      localStorage.setItem(localStorageKey, payload.email)
-      const [loggedUser] = fakeApi.find({model: DatabaseModels.Users, queryKey: "email", queryValue:payload.email})
-      state.currentUser = loggedUser
-      state.isAuthenticated = true
+      localStorage.setItem(LOCAL_STORAGE_KEY, payload.email);
+      const [loggedUser] = fakeApi.find({
+        model: DatabaseModels.Users,
+        queryKey: "email",
+        queryValue: payload.email,
+      });
+      state.currentUser = loggedUser;
+      state.isAuthenticated = true;
     },
 
     logout: (state) => {
-      localStorage.removeItem(localStorageKey)
-      state.currentUser = undefined
-      location.reload()
+      localStorage.removeItem(LOCAL_STORAGE_KEY);
+      state.currentUser = undefined;
+      location.reload();
     },
 
     setIsAuthenticated: (state) => {
-      const isLogged = localStorage.getItem(localStorageKey)
-      state.isAuthenticated = !!isLogged
+      const isLogged = localStorage.getItem(LOCAL_STORAGE_KEY);
+      state.isAuthenticated = !!isLogged;
     },
   },
-})
+});
 
-export const { login, logout, setIsAuthenticated } = authSlice.actions
+export const { login, logout, setIsAuthenticated } = authSlice.actions;
 
-export default authSlice.reducer
+export default authSlice.reducer;

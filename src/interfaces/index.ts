@@ -64,8 +64,5 @@ export interface Database {
   // TODO: interface Beach
   beaches: Array<any>;
 }
-export interface ApiInterface {
-  db: Database;
-}
 
 export type DatabaseModel = DatabaseModels.Users | DatabaseModels.Beaches;
