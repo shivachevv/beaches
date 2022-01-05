@@ -1,5 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
-import { apiKey, noDataColor } from "./constants";
+import { GOOGLE_MAPS_API_KEY, NO_DATA_COLOR } from "./constants";
 import { BeachFlags } from "./enums";
 
 type Flag = BeachFlags.GREEN | BeachFlags.YELLOW | BeachFlags.RED;
@@ -25,7 +25,7 @@ export const getBeachFlagColor = (flag: any): string => {
   const innerFlag: Flag = assignedFlag;
 
   if (!flag) {
-    return noDataColor;
+    return NO_DATA_COLOR;
   }
 
   const flagsColorMap = {
@@ -45,27 +45,31 @@ export const getBeachAvailabilityColor = ({
   available: number | undefined;
 }): BeachAvailabilityColors => {
   if (!capacity || !available) {
-    return { bgcolor: noDataColor, color: noDataColor };
+    return { bgcolor: NO_DATA_COLOR, color: NO_DATA_COLOR };
   }
 
-  const AVAILABILITY_PERCENTAGE_COLOR = { // if we want to use numbers its good to set them in miningfull variables
+  const AVAILABILITY_PERCENTAGE_COLOR = {
+    // if we want to use numbers its good to set them in miningfull variables
     GREEN: 33,
-    YELLOW: 66
-  }
+    YELLOW: 66,
+  };
 
   const freePercentage = (available / capacity) * 100;
 
   if (freePercentage <= AVAILABILITY_PERCENTAGE_COLOR.GREEN) {
     return { bgcolor: "green", color: "white" };
   }
-  if (freePercentage > AVAILABILITY_PERCENTAGE_COLOR.GREEN && freePercentage <= AVAILABILITY_PERCENTAGE_COLOR.YELLOW) {
+  if (
+    freePercentage > AVAILABILITY_PERCENTAGE_COLOR.GREEN &&
+    freePercentage <= AVAILABILITY_PERCENTAGE_COLOR.YELLOW
+  ) {
     return { bgcolor: "yellow", color: "black" };
   }
   return { bgcolor: "red", color: "white" };
 };
 
 export const loadMapApi = () => {
-  const mapsURL = `https://maps.googleapis.com/maps/api/js?key=${apiKey}&libraries=geometry,places&language=en&v=quarterly`;
+  const mapsURL = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&libraries=geometry,places&language=en&v=quarterly`;
   const scripts = document.getElementsByTagName("script");
   // Go through existing script tags, and return google maps api tag when found.
   for (let i = 0; i < scripts.length; i++) {
