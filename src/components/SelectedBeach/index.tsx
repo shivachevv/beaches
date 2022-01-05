@@ -9,14 +9,12 @@ import {
   CardMedia,
   IconButton,
   Typography,
-  Chip,
   Collapse,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Beach } from "../../interfaces";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import EditIcon from "@mui/icons-material/Edit";
-import ShareIcon from "@mui/icons-material/Share";
 import FlagIcon from "@mui/icons-material/Flag";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 

@@ -5,13 +5,11 @@ import { setIsAuthenticated } from "../../store/slices/auth";
 import { useAppDispatch } from "../../store/hooks";
 import { Container, CssBaseline } from "@mui/material";
 import NavLinksProvider from "../../contexts/NavLinksProvider";
-import { loadMapApi, useStyles } from "../../utils/helpers";
-import styles from "./styles";
+import { loadMapApi } from "../../utils/helpers";
 
 type Props = Record<string, unknown>;
 
 const App: React.FC<Props> = (props: Props) => {
-  const classes = useStyles(styles);
   const dispatch = useAppDispatch();
   dispatch(setIsAuthenticated());
 
@@ -24,7 +22,7 @@ const App: React.FC<Props> = (props: Props) => {
   }, []);
 
   return (
-    <Container className={classes.container} disableGutters maxWidth={false}>
+    <Container maxWidth={false} sx={{ minHeight: "100vh" }} disableGutters>
       <NavLinksProvider>
         <CssBaseline />
         <Navbar />

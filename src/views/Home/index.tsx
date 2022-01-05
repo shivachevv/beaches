@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from "react";
-import Button from "@mui/material/Button";
 import { PageTitles } from "../../utils/enums";
-import { setPageTitle, useStyles } from "../../utils/helpers";
-import {
-  Autocomplete,
-  Backdrop,
-  Box,
-  Container,
-  Fade,
-  Modal,
-  TextField,
-  Zoom,
-} from "@mui/material";
-import styles from "./styles";
+import { setPageTitle } from "../../utils/helpers";
+import { Autocomplete, Box, Container, TextField } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import ModalComponent from "./../../components/common/Modal/index";
 import LoginLandingPage from "../../components/LoginLandingPage";
@@ -31,8 +20,6 @@ const Home: React.FC<Props> = (props: Props) => {
     (state) => state.auth
   );
   const { beaches } = useAppSelector((state) => state.beaches);
-
-  const classes = useStyles(styles);
 
   useEffect(() => {
     setPageTitle(PageTitles.HOME);
@@ -66,9 +53,10 @@ const Home: React.FC<Props> = (props: Props) => {
 
   return (
     <Container
-      className={classes.container}
       disableGutters
+      maxWidth={false}
       sx={{
+        height: "100vh",
         pt: 2,
         backgroundImage: `url(${backgroundImage})`,
         backgroundSize: "cover",
@@ -89,7 +77,9 @@ const Home: React.FC<Props> = (props: Props) => {
           disablePortal
           options={beaches || []}
           sx={{ width: 400 }}
-          renderInput={(params) => <TextField {...params} label="Beaches" />}
+          renderInput={(params) => (
+            <TextField {...params} label="Select a beach" />
+          )}
         />
       </Box>
       {selectedBeach ? (
@@ -101,6 +91,7 @@ const Home: React.FC<Props> = (props: Props) => {
         mapType={google.maps.MapTypeId.ROADMAP}
         mapTypeControl={true}
         beaches={beaches || []}
+        selectedBeach={selectedBeach}
         reserve={reserve}
       />
     </Container>

@@ -7,19 +7,47 @@ import {
 } from "../../utils/helpers";
 import FlagIcon from "@mui/icons-material/Flag";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
+import { styled } from "@mui/system";
 
 type Props = {
   beach: Beach;
-  reserve: (beach: Beach) => void;
 };
 
-const MarkerExpandedContent: React.FC<Props> = ({ beach, reserve }: Props) => {
-  const test = (beach1: any) => {
-    console.log(beach1);
-  };
+const MarkerExpandedContent: React.FC<Props> = ({ beach }: Props) => {
+  const StyledButton = styled("button")({
+    background: "#1976d2",
+    color: "white",
+    fontSize: "1rem",
+    fontWeight: "500",
+    border: "none",
+    width: "100%",
+    padding: "10px",
+    margin: "5px 0",
+    borderRadius: "10px",
+    boxShadow: "0px 3px 3px 0px rgb(0 0 0 / 20%)",
+    "&:hover": {
+      cursor: "pointer",
+      backgroundColor: "#1565c0",
+      transition: "background-color 0.2s",
+    },
+  });
+
   return (
-    <Box sx={{ width: "100%", display: "flex", alignItems: "center" }}>
-      <Box>
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+      }}
+    >
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
         <Avatar
           sx={{
             bgcolor: getBeachFlagColor(beach?.flag),
@@ -65,15 +93,7 @@ const MarkerExpandedContent: React.FC<Props> = ({ beach, reserve }: Props) => {
         </Box>
       </Box>
       <Box sx={{ width: "100%", mt: 2 }}>
-        <Button
-          fullWidth
-          sx={{ py: 1, px: 2 }}
-          variant="contained"
-          endIcon={<BeachAccessIcon />}
-          onClick={() => test(beach)}
-        >
-          Reserve
-        </Button>
+        <StyledButton id="info-window-reserve">Reserve</StyledButton>
       </Box>
     </Box>
   );
