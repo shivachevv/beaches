@@ -6,6 +6,7 @@ export enum Roles {
 
 export enum PageTitles {
   HOME = "Beaches Home",
+  RESERVE_SPOT = "Reserve your spot!",
 }
 
 export enum DatabaseModels {
