@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { PageTitles } from "../../utils/enums";
 import { setPageTitle } from "../../utils/helpers";
 import { Autocomplete, Box, Container, TextField } from "@mui/material";
@@ -14,6 +15,7 @@ import backgroundImage from "../../assets/images/2.jpg";
 type Props = Record<string, unknown>;
 
 const Home: React.FC<Props> = (props: Props) => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   dispatch(setBeaches());
   const { isAuthenticated, currentUser } = useAppSelector(
@@ -48,7 +50,7 @@ const Home: React.FC<Props> = (props: Props) => {
 
   const [selectedBeach, setSelectedBeach] = useState<Beach | null>(null);
   const reserve = (beach: Beach | null): void => {
-    console.log(beach);
+    navigate(`/reserve/${beach?.id}`);
   };
 
   return (
