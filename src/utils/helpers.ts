@@ -1,8 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { GOOGLE_MAPS_API_KEY, NO_DATA_COLOR } from "./constants";
-import { BeachFlags } from "./enums";
+import { BEACH_FLAGS } from "./enums";
 
-type Flag = BeachFlags.GREEN | BeachFlags.YELLOW | BeachFlags.RED;
+type Flag = BEACH_FLAGS.GREEN | BEACH_FLAGS.YELLOW | BEACH_FLAGS.RED;
 
 type BeachAvailabilityColors = {
   bgcolor: string;
@@ -29,9 +29,9 @@ export const getBeachFlagColor = (flag: any): string => {
   }
 
   const flagsColorMap = {
-    [BeachFlags.GREEN]: "green",
-    [BeachFlags.YELLOW]: "yellow",
-    [BeachFlags.RED]: "red",
+    [BEACH_FLAGS.GREEN]: "green",
+    [BEACH_FLAGS.YELLOW]: "yellow",
+    [BEACH_FLAGS.RED]: "red",
   };
 
   return flagsColorMap[innerFlag];

@@ -4,7 +4,8 @@ import ReactDOM from "react-dom";
 import App from "./containers/App/index";
 import { Provider } from "react-redux";
 import store from "./store/index";
-import './index.css'
+import "./index.css";
+import "./firebase";
 
 ReactDOM.render(
   <React.StrictMode>

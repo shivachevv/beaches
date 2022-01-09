@@ -1,19 +1,20 @@
-export enum Roles {
+export enum ROLES {
   ADMIN = "admin",
   BEACH_ADMIN = "beach_admin",
   TOURIST = "tourist",
 }
 
-export enum PageTitles {
+export enum PAGE_TITLES {
   HOME = "Beaches Home",
+  RESERVE_SPOT = "Reserve your spot!",
 }
 
-export enum DatabaseModels {
-  Users = "users",
-  Beaches = "beaches",
+export enum DATABASE_MODELS {
+  USERS = "users",
+  BEACHES = "beaches",
 }
 
-export enum BeachFlags {
+export enum BEACH_FLAGS {
   GREEN = "green",
   YELLOW = "yellow",
   RED = "red",

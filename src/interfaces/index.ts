@@ -1,6 +1,6 @@
-import { DatabaseModels, Roles } from "../utils/enums";
+import { DATABASE_MODELS, ROLES } from "../utils/enums";
 
-type Role = Roles.ADMIN | Roles.BEACH_ADMIN | Roles.TOURIST;
+type Role = ROLES.ADMIN | ROLES.BEACH_ADMIN | ROLES.TOURIST;
 
 export interface User {
   id: number;
@@ -40,6 +40,7 @@ export interface AuthState {
 
 export interface BeachesState {
   beaches: Beach[] | undefined;
+  selectedBeach: Beach | null;
 }
 export interface CommonState {
   navLinks: NavLink[];
@@ -48,6 +49,10 @@ export interface CommonState {
 export interface RootState {
   auth: AuthState;
   beaches: BeachesState;
+}
+export interface UserAuthResult {
+  user: User | undefined;
+  error: boolean;
 }
 
 export interface LoginData {
@@ -65,4 +70,4 @@ export interface Database {
   beaches: Array<any>;
 }
 
-export type DatabaseModel = DatabaseModels.Users | DatabaseModels.Beaches;
+export type DatabaseModel = DATABASE_MODELS.USERS | DATABASE_MODELS.BEACHES;

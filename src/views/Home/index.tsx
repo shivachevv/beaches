@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { PageTitles } from "../../utils/enums";
+import { useNavigate } from "react-router-dom";
+import { PAGE_TITLES } from "../../utils/enums";
 import { setPageTitle } from "../../utils/helpers";
 import { Autocomplete, Box, Container, TextField } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import ModalComponent from "./../../components/common/Modal/index";
 import LoginLandingPage from "../../components/LoginLandingPage";
-import { setBeaches } from "../../store/slices/beaches";
+import { fetchBeaches } from "../../store/slices/beaches";
 import { Beach } from "../../interfaces";
 import SelectedBeach from "../../components/SelectedBeach";
 import BeachMap from "../../components/BeachMap";
@@ -14,15 +15,19 @@ import backgroundImage from "../../assets/images/2.jpg";
 type Props = Record<string, unknown>;
 
 const Home: React.FC<Props> = (props: Props) => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  dispatch(setBeaches());
+  useEffect(() => {
+    dispatch(fetchBeaches());
+  }, []);
+
   const { isAuthenticated, currentUser } = useAppSelector(
     (state) => state.auth
   );
   const { beaches } = useAppSelector((state) => state.beaches);
 
   useEffect(() => {
-    setPageTitle(PageTitles.HOME);
+    setPageTitle(PAGE_TITLES.HOME);
 
     if (isAuthenticated) {
       handleModalOpen();
@@ -48,7 +53,7 @@ const Home: React.FC<Props> = (props: Props) => {
 
   const [selectedBeach, setSelectedBeach] = useState<Beach | null>(null);
   const reserve = (beach: Beach | null): void => {
-    console.log(beach);
+    navigate(`/reserve/${beach?.id}`);
   };
 
   return (
