@@ -1,13 +1,13 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AuthState, LoginData, User } from "../../interfaces";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AuthState, LoginData, User, UserAuthResult } from "../../interfaces";
 import {
   DUMMY_PASSWORD,
   LOCAL_STORAGE_KEY,
   ERROR_MESSAGES,
 } from "../../utils/constants";
 import type { RootState } from "../../interfaces";
-import fakeApi from "../../api/fakeApi";
 import { DATABASE_MODELS } from "../../utils/enums";
+import { db } from "../../firebase";
 
 export const INITIAL_STATE: AuthState = {
   currentUser: undefined,
@@ -16,6 +16,23 @@ export const INITIAL_STATE: AuthState = {
   loading: true,
 };
 
+export const login = createAsyncThunk(
+  "auth/login",
+  async ({ email, password }: LoginData) => {
+    if (password !== DUMMY_PASSWORD) {
+      return { user: undefined, error: true };
+    }
+    localStorage.setItem(LOCAL_STORAGE_KEY, email);
+    const querySnapshot = await db
+      .collection(DATABASE_MODELS.USERS)
+      .where("email", "==", email)
+      .get();
+    const [user] = querySnapshot.docs.map((doc: any) => doc.data());
+
+    return { user, error: false };
+  }
+);
+
 // Other code such as selectors can use the imported `RootState` type
 // export const selectCount = (state: RootState) => state.counter.value
 
@@ -23,21 +40,6 @@ const authSlice = createSlice({
   name: "auth",
   initialState: INITIAL_STATE,
   reducers: {
-    login: (state, { payload }: PayloadAction<LoginData>) => {
-      if (payload.password !== DUMMY_PASSWORD) {
-        state.error = ERROR_MESSAGES.WRONG_PASSWORD;
-        return;
-      }
-      localStorage.setItem(LOCAL_STORAGE_KEY, payload.email);
-      const [loggedUser] = fakeApi.find({
-        model: DATABASE_MODELS.USERS,
-        queryKey: "email",
-        queryValue: payload.email,
-      });
-      state.currentUser = loggedUser;
-      state.isAuthenticated = true;
-    },
-
     logout: (state) => {
       localStorage.removeItem(LOCAL_STORAGE_KEY);
       state.currentUser = undefined;
@@ -49,8 +51,21 @@ const authSlice = createSlice({
       state.isAuthenticated = !!isLogged;
     },
   },
+  extraReducers: {
+    [login.fulfilled.toString()]: (
+      state: AuthState,
+      action: PayloadAction<UserAuthResult>
+    ) => {
+      if (action.payload.error) {
+        state.error = ERROR_MESSAGES.WRONG_PASSWORD;
+        return;
+      }
+
+      state.currentUser = action.payload.user;
+    },
+  },
 });
 
-export const { login, logout, setIsAuthenticated } = authSlice.actions;
+export const { logout, setIsAuthenticated } = authSlice.actions;
 
 export default authSlice.reducer;

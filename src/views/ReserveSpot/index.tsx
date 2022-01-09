@@ -12,11 +12,9 @@ import {
   TextField,
 } from "@mui/material";
 import { setPageTitle } from "../../utils/helpers";
-import { DATABASE_MODELS, PAGE_TITLES } from "../../utils/enums";
-import { Beach } from "../../interfaces";
-import fakeApi from "../../api/fakeApi";
+import { PAGE_TITLES } from "../../utils/enums";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import { setBeaches } from "../../store/slices/beaches";
+import { fetchSelectedBeach } from "../../store/slices/beaches";
 
 type Props = Record<string, unknown>;
 
@@ -32,23 +30,16 @@ const steps = [
 
 const ReserveSpot: React.FC<Props> = (props: Props) => {
   const dispatch = useAppDispatch();
-  dispatch(setBeaches());
   const { beaches } = useAppSelector((state) => state.beaches);
+  const { selectedBeach } = useAppSelector((state) => state.beaches);
   const { currentUser } = useAppSelector((state) => state.auth);
 
   const navigate = useNavigate();
-  const [beach, setBeach] = useState<Beach | null>(null);
   const { beachId }: { beachId: any } = useParams();
 
   useEffect(() => {
     setPageTitle(PAGE_TITLES.RESERVE_SPOT);
-    const beach = fakeApi.find({
-      model: DATABASE_MODELS.BEACHES,
-      queryKey: "id",
-      queryValue: +beachId,
-    })[0];
-
-    setBeach(beach);
+    dispatch(fetchSelectedBeach(+beachId));
   }, []);
 
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -68,7 +59,6 @@ const ReserveSpot: React.FC<Props> = (props: Props) => {
   const [sets, setSets] = useState<number>(0);
   useEffect(() => {
     if (activeStep === steps.length) {
-      fakeApi.patch();
       console.log(beaches);
     }
   }, [activeStep]);
@@ -84,7 +74,7 @@ const ReserveSpot: React.FC<Props> = (props: Props) => {
         }}
       >
         <Typography variant="h4" sx={{ width: "100% " }}>
-          Welcome to {beach?.name}!
+          Welcome to {selectedBeach?.name}!
         </Typography>
         <Stepper
           activeStep={activeStep}

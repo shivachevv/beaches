@@ -40,6 +40,7 @@ export interface AuthState {
 
 export interface BeachesState {
   beaches: Beach[] | undefined;
+  selectedBeach: Beach | null;
 }
 export interface CommonState {
   navLinks: NavLink[];
@@ -48,6 +49,10 @@ export interface CommonState {
 export interface RootState {
   auth: AuthState;
   beaches: BeachesState;
+}
+export interface UserAuthResult {
+  user: User | undefined;
+  error: boolean;
 }
 
 export interface LoginData {

@@ -6,7 +6,7 @@ import { Autocomplete, Box, Container, TextField } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import ModalComponent from "./../../components/common/Modal/index";
 import LoginLandingPage from "../../components/LoginLandingPage";
-import { setBeaches } from "../../store/slices/beaches";
+import { fetchBeaches } from "../../store/slices/beaches";
 import { Beach } from "../../interfaces";
 import SelectedBeach from "../../components/SelectedBeach";
 import BeachMap from "../../components/BeachMap";
@@ -17,7 +17,10 @@ type Props = Record<string, unknown>;
 const Home: React.FC<Props> = (props: Props) => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  dispatch(setBeaches());
+  useEffect(() => {
+    dispatch(fetchBeaches());
+  }, []);
+
   const { isAuthenticated, currentUser } = useAppSelector(
     (state) => state.auth
   );
