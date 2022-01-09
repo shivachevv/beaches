@@ -1,6 +1,6 @@
-import { DatabaseModels, Roles } from "../utils/enums";
+import { DATABASE_MODELS, ROLES } from "../utils/enums";
 
-type Role = Roles.ADMIN | Roles.BEACH_ADMIN | Roles.TOURIST;
+type Role = ROLES.ADMIN | ROLES.BEACH_ADMIN | ROLES.TOURIST;
 
 export interface User {
   id: number;
@@ -65,4 +65,4 @@ export interface Database {
   beaches: Array<any>;
 }
 
-export type DatabaseModel = DatabaseModels.Users | DatabaseModels.Beaches;
+export type DatabaseModel = DATABASE_MODELS.USERS | DATABASE_MODELS.BEACHES;

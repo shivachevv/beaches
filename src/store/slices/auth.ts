@@ -7,7 +7,7 @@ import {
 } from "../../utils/constants";
 import type { RootState } from "../../interfaces";
 import fakeApi from "../../api/fakeApi";
-import { DatabaseModels } from "../../utils/enums";
+import { DATABASE_MODELS } from "../../utils/enums";
 
 export const INITIAL_STATE: AuthState = {
   currentUser: undefined,
@@ -30,7 +30,7 @@ const authSlice = createSlice({
       }
       localStorage.setItem(LOCAL_STORAGE_KEY, payload.email);
       const [loggedUser] = fakeApi.find({
-        model: DatabaseModels.Users,
+        model: DATABASE_MODELS.USERS,
         queryKey: "email",
         queryValue: payload.email,
       });

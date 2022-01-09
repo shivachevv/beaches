@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import fakeApi from "../../api/fakeApi";
 import { BeachesState } from "../../interfaces";
-import { DatabaseModels } from "../../utils/enums";
+import { DATABASE_MODELS } from "../../utils/enums";
 
 export const INITIAL_STATE: BeachesState = {
   beaches: [],
@@ -15,7 +15,7 @@ const beachesSlice = createSlice({
   initialState: INITIAL_STATE,
   reducers: {
     setBeaches: (state) => {
-      const beaches = fakeApi.findAll({ model: DatabaseModels.Beaches });
+      const beaches = fakeApi.findAll({ model: DATABASE_MODELS.BEACHES });
       state.beaches = beaches;
     },
   },

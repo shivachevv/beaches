@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { PageTitles } from "../../utils/enums";
+import { PAGE_TITLES } from "../../utils/enums";
 import { setPageTitle } from "../../utils/helpers";
 import { Autocomplete, Box, Container, TextField } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
@@ -24,7 +24,7 @@ const Home: React.FC<Props> = (props: Props) => {
   const { beaches } = useAppSelector((state) => state.beaches);
 
   useEffect(() => {
-    setPageTitle(PageTitles.HOME);
+    setPageTitle(PAGE_TITLES.HOME);
 
     if (isAuthenticated) {
       handleModalOpen();
