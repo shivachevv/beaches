@@ -11,6 +11,7 @@ export interface User {
 }
 export interface Beach {
   id: number;
+  firebaseId: string;
   name: string;
   description: string;
   coordinates: Coordinates;

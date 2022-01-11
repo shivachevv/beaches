@@ -15,13 +15,10 @@ import React, { useState } from "react";
 import { Beach } from "../../interfaces";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import EditIcon from "@mui/icons-material/Edit";
-import FlagIcon from "@mui/icons-material/Flag";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import BeachFlag from "./../BeachFlag/index";
+import { getBeachAvailabilityColor } from "../../utils/helpers";
 
-import {
-  getBeachAvailabilityColor,
-  getBeachFlagColor,
-} from "../../utils/helpers";
 type Props = {
   beach: Beach | null;
   reserve: (beach: Beach | null) => void;
@@ -64,9 +61,7 @@ const SelectedBeach: React.FC<Props> = ({ beach, reserve }: Props) => {
             }}
           >
             <Box sx={{ display: "flex", alignItems: "center" }}>
-              <Avatar sx={{ bgcolor: getBeachFlagColor(beach?.flag) }}>
-                <FlagIcon />
-              </Avatar>
+              <BeachFlag beach={beach} />
               <Box
                 sx={{
                   bgcolor: getBeachAvailabilityColor({

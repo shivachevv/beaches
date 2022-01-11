@@ -12,11 +12,16 @@ export const INITIAL_STATE: BeachesState = {
 // export const selectCount = (state: RootState) => state.counter.value
 
 export const fetchBeaches = createAsyncThunk(
-  "beaches/fetchBeachesStatus",
+  "beaches/fetchBeaches",
   async () => {
     const querySnapshot = await db.collection(DATABASE_MODELS.BEACHES).get();
 
-    const beaches = querySnapshot.docs.map((doc: any) => doc.data());
+    const beaches = querySnapshot.docs.map((doc: any) => ({
+      ...doc.data(),
+      firebaseId: doc.id,
+    }));
+    console.log(beaches);
+
     return beaches;
   }
 );
@@ -28,7 +33,10 @@ export const fetchSelectedBeach = createAsyncThunk(
       .collection(DATABASE_MODELS.BEACHES)
       .where("id", "==", id)
       .get();
-    const [beach]: Beach[] = querySnapshot.docs.map((doc: any) => doc.data());
+    const [beach]: Beach[] = querySnapshot.docs.map((doc: any) => ({
+      ...doc.data(),
+      firebaseId: doc.id,
+    }));
 
     return beach;
   }
