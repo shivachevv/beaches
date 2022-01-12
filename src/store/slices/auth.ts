@@ -5,7 +5,6 @@ import {
   LOCAL_STORAGE_KEY,
   ERROR_MESSAGES,
 } from "../../utils/constants";
-import type { RootState } from "../../interfaces";
 import { DATABASE_MODELS } from "../../utils/enums";
 import { db } from "../../firebase";
 
@@ -27,7 +26,30 @@ export const login = createAsyncThunk(
       .collection(DATABASE_MODELS.USERS)
       .where("email", "==", email)
       .get();
-    const [user] = querySnapshot.docs.map((doc: any) => doc.data());
+    const [user] = querySnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      firebaseId: doc.id,
+    }));
+
+    return { user, error: false };
+  }
+);
+
+export const setCurrentUser = createAsyncThunk(
+  "auth/setCurrentUser",
+  async () => {
+    const email = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (!email) {
+      return { user: undefined, error: false };
+    }
+    const querySnapshot = await db
+      .collection(DATABASE_MODELS.USERS)
+      .where("email", "==", email)
+      .get();
+    const [user] = querySnapshot.docs.map((doc) => ({
+      ...doc.data(),
+      firebaseId: doc.id,
+    }));
 
     return { user, error: false };
   }
@@ -58,6 +80,17 @@ const authSlice = createSlice({
     ) => {
       if (action.payload.error) {
         state.error = ERROR_MESSAGES.WRONG_PASSWORD;
+        return;
+      }
+
+      state.currentUser = action.payload.user;
+    },
+    [setCurrentUser.fulfilled.toString()]: (
+      state: AuthState,
+      action: PayloadAction<UserAuthResult>
+    ) => {
+      if (action.payload.error) {
+        state.error = ERROR_MESSAGES.NO_USER;
         return;
       }
 
