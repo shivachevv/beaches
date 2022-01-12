@@ -8,6 +8,7 @@ export interface User {
   role: string;
   firstName: string;
   lastName: string;
+  firebaseId: string;
 }
 export interface Beach {
   id: number;
@@ -21,6 +22,12 @@ export interface Beach {
   slug: string;
   beachAdminId: number;
   flag: string;
+}
+export interface ReservationModel {
+  userId: string;
+  beachId: string;
+  sets: string | number;
+  time: Date;
 }
 
 export interface Coordinates {

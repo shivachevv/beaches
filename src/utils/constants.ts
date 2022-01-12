@@ -6,6 +6,7 @@ export const DUMMY_PASSWORD = "I_killed_JFK";
 
 export const ERROR_MESSAGES = {
   WRONG_PASSWORD: "Password is not correct!",
+  NO_USER: "No logged in User!",
 };
 
 export const NO_DATA_COLOR = "grey";
