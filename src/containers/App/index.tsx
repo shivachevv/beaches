@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ContentWrapper from "../../routes/RoutersWrapper/index";
 import Navbar from "./../../components/common/Navbar/index";
-import { setIsAuthenticated } from "../../store/slices/auth";
+import { setIsAuthenticated, setCurrentUser } from "../../store/slices/auth";
 import { useAppDispatch } from "../../store/hooks";
 import { Container, CssBaseline } from "@mui/material";
 import NavLinksProvider from "../../contexts/NavLinksProvider";
@@ -12,6 +12,7 @@ type Props = Record<string, unknown>;
 const App: React.FC<Props> = (props: Props) => {
   const dispatch = useAppDispatch();
   dispatch(setIsAuthenticated());
+  dispatch(setCurrentUser());
 
   const [googleScriptLoaded, setGoogleScriptLoaded] = useState(false);
   useEffect(() => {
