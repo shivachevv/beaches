@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import {
   Box,
@@ -10,7 +10,6 @@ import {
   Button,
   Paper,
   TextField,
-  Avatar,
 } from "@mui/material";
 import { setPageTitle } from "../../utils/helpers";
 import { DATABASE_MODELS, PAGE_TITLES } from "../../utils/enums";
@@ -19,8 +18,8 @@ import { fetchSelectedBeach } from "../../store/slices/beaches";
 import { db } from "./../../firebase/index";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import AirlineSeatFlatIcon from "@mui/icons-material/AirlineSeatFlat";
-import { getBeachFlagColor } from "./../../utils/helpers";
-import FlagIcon from "@mui/icons-material/Flag";
+import { Reservation } from "../../models/reservation";
+import BeachFlag from "../../components/BeachFlag";
 
 type Props = Record<string, unknown>;
 
@@ -36,7 +35,6 @@ const steps = [
 
 const ReserveSpot: React.FC<Props> = (props: Props) => {
   const dispatch = useAppDispatch();
-  const { beaches } = useAppSelector((state) => state.beaches);
   const { selectedBeach } = useAppSelector((state) => state.beaches);
   const { currentUser } = useAppSelector((state) => state.auth);
 
@@ -63,17 +61,31 @@ const ReserveSpot: React.FC<Props> = (props: Props) => {
   };
 
   const [sets, setSets] = useState<number>(0);
-  useEffect(() => {
-    if (activeStep === steps.length && !!selectedBeach) {
-      console.log(selectedBeach);
+  const saveReservation = useCallback(async () => {
+    console.log(currentUser);
 
+    if (activeStep === steps.length && !!selectedBeach && !!currentUser) {
       db.collection(DATABASE_MODELS.BEACHES)
         .doc(selectedBeach?.firebaseId)
         .update({
           available: selectedBeach.available - sets,
         });
+
+      const reservation = new Reservation({
+        userId: currentUser?.firebaseId,
+        beachId: selectedBeach.firebaseId,
+        sets,
+        time: new Date(),
+      });
+
+      await reservation.create();
     }
   }, [activeStep]);
+
+  useEffect(() => {
+    saveReservation();
+  }, [saveReservation]);
+
   const decrement = (): void => {
     if (sets > 0) {
       setSets((sets) => --sets);
@@ -87,35 +99,88 @@ const ReserveSpot: React.FC<Props> = (props: Props) => {
     return (
       <Box
         sx={{
-          my: 2,
+          py: 2,
+          px: 2,
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           width: "100%",
+          backgroundColor: "wheat",
         }}
       >
         <Typography variant="h4" sx={{ width: "100%", textAlign: "center" }}>
           Welcome to {selectedBeach?.name}!
         </Typography>
-        <Box sx={{ mt: 3, display: "flex" }}>
+        <Box
+          sx={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+          }}
+        >
           <Box
             component="img"
             sx={{
-              height: 100,
+              height: 120,
+              borderRadius: "5px",
             }}
             alt="Logo"
             src={`/images/beaches/${selectedBeach?.slug}.jpg`}
           />
           <Box>
-            <Avatar
-              sx={{
-                bgcolor: getBeachFlagColor(selectedBeach?.flag),
-                width: 30,
-                height: 30,
-              }}
+            <BeachFlag beach={selectedBeach} size="50px" />
+          </Box>
+          <Typography
+            sx={{
+              padding: "10px",
+            }}
+            variant="button"
+          >
+            Available:{" "}
+            {`${selectedBeach?.available} / ${selectedBeach?.capacity}`}
+          </Typography>
+          <Box
+            sx={{ display: "flex", flexDirection: "column", padding: "10px" }}
+          >
+            <Box
+              sx={{ display: "flex", alignItems: "center", padding: "10px" }}
             >
-              <FlagIcon fontSize="small" />
-            </Avatar>
+              <BeachAccessIcon
+                fontSize="large"
+                sx={{
+                  marginRight: "10px",
+                }}
+              />
+              <Typography
+                sx={{
+                  borderLeft: "2px solid black",
+                  padding: "10px",
+                }}
+                variant="button"
+              >
+                {selectedBeach?.prices.umbrella} lv.
+              </Typography>
+            </Box>
+            <Box
+              sx={{ display: "flex", alignItems: "center", padding: "10px" }}
+            >
+              <AirlineSeatFlatIcon
+                fontSize="large"
+                sx={{
+                  marginRight: "10px",
+                }}
+              />
+              <Typography
+                variant="button"
+                sx={{
+                  borderLeft: "2px solid black",
+                  padding: "10px",
+                }}
+              >
+                {selectedBeach?.prices.seat} lv.
+              </Typography>
+            </Box>
           </Box>
         </Box>
       </Box>
@@ -226,10 +291,18 @@ const ReserveSpot: React.FC<Props> = (props: Props) => {
   };
 
   return (
-    <Box sx={{ width: "100%", display: "flex", justifyContent: "center" }}>
-      <Box
+    <Box
+      sx={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        padding: 4,
+      }}
+    >
+      <Paper
+        elevation={4}
         sx={{
-          width: "50%",
+          width: "70%",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -240,7 +313,7 @@ const ReserveSpot: React.FC<Props> = (props: Props) => {
         <Stepper
           activeStep={activeStep}
           orientation="vertical"
-          sx={{ width: "80%" }}
+          sx={{ width: "80%", my: 4 }}
         >
           {steps.map((step, index) => (
             <Step key={step.label}>
@@ -289,7 +362,7 @@ const ReserveSpot: React.FC<Props> = (props: Props) => {
             </Button>
           </Paper>
         )}
-      </Box>
+      </Paper>
     </Box>
   );
 };
