@@ -1,26 +1,41 @@
 import * as React from "react";
 import {
   AppBar,
+  Avatar,
   Box,
   Button,
   Drawer,
   IconButton,
+  Menu,
+  MenuItem,
   Toolbar,
   Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../assets/images/beaches_logo.png";
 import styles from "./styles";
 import { useStyles } from "../../../utils/helpers";
 import { NavLinksContext } from "../../../contexts/NavLinksProvider";
+import { useAppDispatch, useAppSelector } from "../../../store/hooks";
+import { logout } from "../../../store/slices/auth";
 
 type Props = Record<string, unknown>;
 
 const Navbar: React.FC<Props> = (props: Props) => {
-  const navLinks = React.useContext (NavLinksContext)
+  const navigate = useNavigate();
+  const navLinks = React.useContext(NavLinksContext);
+  const { isAuthenticated, currentUser } = useAppSelector(
+    (state) => state.auth
+  );
+
+  const dispatch = useAppDispatch();
+
+  const logoutUser = () => {
+    dispatch(logout());
+  };
 
   const classes = useStyles(styles);
   const theme = useTheme();
@@ -43,6 +58,62 @@ const Navbar: React.FC<Props> = (props: Props) => {
       </Link>
     ));
 
+  const getUserLetters = () =>
+    `${currentUser?.firstName[0]} ${currentUser?.lastName[0]}`.toLocaleUpperCase();
+
+  const [userMenuAnchor, setUserMenuAnchor] =
+    React.useState<null | HTMLElement>(null);
+  const openUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setUserMenuAnchor(event.currentTarget);
+  };
+  const closeUserMenu = () => {
+    setUserMenuAnchor(null);
+  };
+  const renderUserDetails = (): React.ReactNode => {
+    return isAuthenticated ? (
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+        }}
+      >
+        <IconButton onClick={openUserMenu}>
+          <Avatar sx={{ bgcolor: "orange" }}>{getUserLetters()}</Avatar>
+        </IconButton>
+        <Menu
+          sx={{ mt: "45px" }}
+          id="menu-appbar"
+          anchorEl={userMenuAnchor}
+          anchorOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          keepMounted
+          transformOrigin={{
+            vertical: "top",
+            horizontal: "right",
+          }}
+          open={Boolean(userMenuAnchor)}
+          onClose={closeUserMenu}
+        >
+          <MenuItem onClick={closeUserMenu}>
+            <Link to="/my-profile" className={classes.link}>
+              My Profile
+            </Link>
+          </MenuItem>
+          <Button color="inherit" fullWidth onClick={logoutUser}>
+            Logout
+          </Button>
+        </Menu>
+      </Box>
+    ) : (
+      <Button color="inherit" onClick={() => navigate("/login")}>
+        Login
+      </Button>
+    );
+  };
+
   return (
     <AppBar
       position="sticky"
@@ -64,10 +135,15 @@ const Navbar: React.FC<Props> = (props: Props) => {
         <Box
           sx={{
             flexGrow: 1,
-            display: { xs: "none", sm: "flex" },
+            display: {
+              xs: "none",
+              sm: "flex",
+              justifyContent: "space-between",
+            },
           }}
         >
-          {renderNavLinks({ isMobile: false })}
+          <Box>{renderNavLinks({ isMobile: false })}</Box>
+          {renderUserDetails()}
         </Box>
         <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
           <IconButton

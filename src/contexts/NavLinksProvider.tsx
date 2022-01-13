@@ -13,12 +13,6 @@ const NavLinksProvider = (props: Props) => {
   const [stateNavLinks, setStateNavLinks] = useState(NAV_LINKS);
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      setStateNavLinks(NAV_LINKS.filter((link) => link.path !== "/login"));
-    }
-  }, []);
-
   return (
     <NavLinksContext.Provider value={stateNavLinks}>
       {props.children}

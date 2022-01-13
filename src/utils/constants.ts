@@ -26,8 +26,4 @@ export const NAV_LINKS = [
     path: "/my-reservations",
     name: "My Reservations",
   },
-  {
-    path: "/login",
-    name: "Login",
-  },
 ];
