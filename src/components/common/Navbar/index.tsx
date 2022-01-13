@@ -21,6 +21,7 @@ import { useStyles } from "../../../utils/helpers";
 import { NavLinksContext } from "../../../contexts/NavLinksProvider";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { logout } from "../../../store/slices/auth";
+import scss from "./index.module.scss";
 
 type Props = Record<string, unknown>;
 
@@ -96,15 +97,18 @@ const Navbar: React.FC<Props> = (props: Props) => {
           }}
           open={Boolean(userMenuAnchor)}
           onClose={closeUserMenu}
+          className={isMobile ? scss.menu : ""}
         >
           <MenuItem onClick={closeUserMenu}>
             <Link to="/my-profile" className={classes.link}>
               My Profile
             </Link>
           </MenuItem>
-          <Button color="inherit" fullWidth onClick={logoutUser}>
-            Logout
-          </Button>
+          <MenuItem onClick={closeUserMenu}>
+            <Button color="inherit" fullWidth onClick={logoutUser}>
+              Logout
+            </Button>
+          </MenuItem>
         </Menu>
       </Box>
     ) : (
@@ -116,7 +120,7 @@ const Navbar: React.FC<Props> = (props: Props) => {
 
   return (
     <AppBar
-      position="sticky"
+      position="absolute"
       color="primary"
       sx={{ top: menuPosition.top, bottom: menuPosition.bottom }}
     >
@@ -143,9 +147,18 @@ const Navbar: React.FC<Props> = (props: Props) => {
           }}
         >
           <Box>{renderNavLinks({ isMobile: false })}</Box>
-          {renderUserDetails()}
+          {!isMobile && renderUserDetails()}
         </Box>
-        <Box sx={{ flexGrow: 1, display: { xs: "flex", sm: "none" } }}>
+        <Box
+          sx={{
+            flexGrow: 1,
+            display: {
+              xs: "flex",
+              justifyContent: "space-between",
+              sm: "none",
+            },
+          }}
+        >
           <IconButton
             size="large"
             aria-controls="menu-appbar"
@@ -155,6 +168,7 @@ const Navbar: React.FC<Props> = (props: Props) => {
           >
             <MenuIcon />
           </IconButton>
+          {isMobile && renderUserDetails()}
           <Drawer
             anchor="bottom"
             open={isMobileNavOpen}
