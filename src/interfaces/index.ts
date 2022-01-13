@@ -9,6 +9,7 @@ export interface UserModel {
   role: string;
   firstName: string;
   lastName: string;
+  deposit: number;
 }
 export interface BeachModel {
   id: string;
@@ -75,7 +76,7 @@ export interface NavLink {
 export interface Database {
   users: UserModel[];
   // TODO: interface BeachModel
-  beaches: Array<any>;
+  beaches: BeachModel[];
 }
 
 export type DatabaseModel = DATABASE_MODELS.USERS | DATABASE_MODELS.BEACHES;

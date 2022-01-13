@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Box,
   Step,
@@ -235,6 +235,10 @@ const ReserveSpot: React.FC<Props> = (props: Props) => {
     };
   };
 
+  const isNotEnoughMoney = () => {
+    return !!currentUser && +getPrices().total > currentUser?.deposit;
+  };
+
   const renderConfirmPayment = (): React.ReactNode => {
     return (
       <Box
@@ -279,10 +283,22 @@ const ReserveSpot: React.FC<Props> = (props: Props) => {
             {sets * 2} x {selectedBeach?.prices.seat.toFixed(2)}lv.={" "}
             {getPrices().seat} lv.
           </Typography>
-          <Typography variant="subtitle1"></Typography>
         </Box>
         <Box sx={{ marginTop: "10px", padding: "10px", background: "wheat" }}>
-          Total: {getPrices().total} lv.
+          <Typography variant="subtitle1">
+            Total: {getPrices().total} lv.
+          </Typography>
+          <Typography variant="subtitle1">
+            Available funds: {currentUser?.deposit} lv.
+          </Typography>
+          <Typography variant="subtitle1">
+            {isNotEnoughMoney() && (
+              <Box sx={{ ml: 1 }}>
+                Insufficient funds for the reservation. Please{" "}
+                <Link to="/my-profile">Deposit!</Link>
+              </Box>
+            )}
+          </Typography>
         </Box>
       </Box>
     );
