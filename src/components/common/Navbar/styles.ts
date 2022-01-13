@@ -1,7 +1,9 @@
 const styles = {
-        link: {
-          textDecoration:"none",
-        }
-}
+  link: {
+    textDecoration: "none",
+    color: "inherit",
+    textTransform: "uppercase",
+  },
+};
 
 export default styles;

@@ -78,6 +78,7 @@ const authSlice = createSlice({
       }
 
       state.currentUser = action.payload.user;
+      location.reload();
     },
     [setCurrentUser.fulfilled.toString()]: (
       state: AuthState,
