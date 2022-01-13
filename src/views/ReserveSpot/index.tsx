@@ -12,14 +12,14 @@ import {
   TextField,
 } from "@mui/material";
 import { setPageTitle } from "../../utils/helpers";
-import { DATABASE_MODELS, PAGE_TITLES } from "../../utils/enums";
+import { PAGE_TITLES } from "../../utils/enums";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { fetchSelectedBeach } from "../../store/slices/beaches";
-import { db } from "./../../firebase/index";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import AirlineSeatFlatIcon from "@mui/icons-material/AirlineSeatFlat";
 import { Reservation } from "../../models/reservation";
 import BeachFlag from "../../components/BeachFlag";
+import { Beach } from "./../../models/beaches";
 
 type Props = Record<string, unknown>;
 
@@ -43,7 +43,7 @@ const ReserveSpot: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     setPageTitle(PAGE_TITLES.RESERVE_SPOT);
-    dispatch(fetchSelectedBeach(+beachId));
+    dispatch(fetchSelectedBeach(beachId));
   }, []);
 
   const [activeStep, setActiveStep] = useState<number>(0);
@@ -62,23 +62,21 @@ const ReserveSpot: React.FC<Props> = (props: Props) => {
 
   const [sets, setSets] = useState<number>(0);
   const saveReservation = useCallback(async () => {
-    console.log(currentUser);
-
     if (activeStep === steps.length && !!selectedBeach && !!currentUser) {
-      db.collection(DATABASE_MODELS.BEACHES)
-        .doc(selectedBeach?.firebaseId)
-        .update({
-          available: selectedBeach.available - sets,
-        });
+      const updatedBeach = new Beach(selectedBeach);
+      await updatedBeach.update(selectedBeach.id, {
+        available: selectedBeach.available - sets,
+      });
 
       const reservation = new Reservation({
-        userId: currentUser?.firebaseId,
-        beachId: selectedBeach.firebaseId,
+        userId: currentUser?.id,
+        beachId: selectedBeach.id,
         sets,
         time: new Date(),
       });
-
       await reservation.create();
+
+      dispatch(fetchSelectedBeach(beachId));
     }
   }, [activeStep]);
 

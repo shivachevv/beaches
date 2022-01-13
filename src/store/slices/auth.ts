@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AuthState, LoginData, User, UserAuthResult } from "../../interfaces";
+import { AuthState, LoginData, UserAuthResult } from "../../interfaces";
 import {
   DUMMY_PASSWORD,
   LOCAL_STORAGE_KEY,
@@ -26,10 +26,7 @@ export const login = createAsyncThunk(
       .collection(DATABASE_MODELS.USERS)
       .where("email", "==", email)
       .get();
-    const [user] = querySnapshot.docs.map((doc) => ({
-      ...doc.data(),
-      firebaseId: doc.id,
-    }));
+    const [user] = querySnapshot.docs.map((doc) => doc.data());
 
     return { user, error: false };
   }
@@ -46,10 +43,7 @@ export const setCurrentUser = createAsyncThunk(
       .collection(DATABASE_MODELS.USERS)
       .where("email", "==", email)
       .get();
-    const [user] = querySnapshot.docs.map((doc) => ({
-      ...doc.data(),
-      firebaseId: doc.id,
-    }));
+    const [user] = querySnapshot.docs.map((doc) => doc.data());
 
     return { user, error: false };
   }

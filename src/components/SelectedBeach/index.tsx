@@ -11,7 +11,7 @@ import {
   Collapse,
 } from "@mui/material";
 import React, { useState } from "react";
-import { Beach } from "../../interfaces";
+import { BeachModel } from "../../interfaces";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import EditIcon from "@mui/icons-material/Edit";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -19,8 +19,8 @@ import BeachFlag from "./../BeachFlag/index";
 import { getBeachAvailabilityColor } from "../../utils/helpers";
 
 type Props = {
-  beach: Beach | null;
-  reserve: (beach: Beach | null) => void;
+  beach: BeachModel | null;
+  reserve: (beach: BeachModel | null) => void;
 };
 
 const SelectedBeach: React.FC<Props> = ({ beach, reserve }: Props) => {

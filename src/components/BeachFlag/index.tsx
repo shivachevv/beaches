@@ -1,11 +1,11 @@
 import { Avatar } from "@mui/material";
 import React from "react";
-import { Beach } from "../../interfaces";
+import { BeachModel } from "../../interfaces";
 import FlagIcon from "@mui/icons-material/Flag";
 
 import { getBeachFlagColor } from "../../utils/helpers";
 type Props = {
-  beach: Beach | null;
+  beach: BeachModel | null;
   size?: string;
 };
 

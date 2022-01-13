@@ -3,7 +3,7 @@ import { ReservationModel } from "../interfaces";
 import { DATABASE_MODELS } from "../utils/enums";
 import firebase from "firebase/compat";
 
-interface ReservationMethod {
+interface ReservationClass extends ReservationModel {
   userId: string;
   beachId: string;
   sets: string | number;
@@ -12,7 +12,8 @@ interface ReservationMethod {
   //   update(): Promise<ReservationModel>;
 }
 
-export class Reservation implements ReservationMethod {
+export class Reservation implements ReservationClass {
+  id: string;
   userId: string;
   beachId: string;
   sets: string | number;
@@ -29,6 +30,7 @@ export class Reservation implements ReservationMethod {
     sets: string | number;
     time: Date;
   }) {
+    this.id = "default";
     this.userId = userId;
     this.beachId = beachId;
     this.sets = sets;
@@ -39,10 +41,17 @@ export class Reservation implements ReservationMethod {
     const createSnapshot = await db
       .collection(DATABASE_MODELS.RESERVATIONS)
       .add({
+        id: this.id,
         userId: this.userId,
         beachId: this.beachId,
         sets: this.sets,
         time: this.time,
+      });
+    await db
+      .collection(DATABASE_MODELS.RESERVATIONS)
+      .doc(createSnapshot.id)
+      .update({
+        id: createSnapshot.id,
       });
     const querySnapshot = await db
       .collection(DATABASE_MODELS.RESERVATIONS)

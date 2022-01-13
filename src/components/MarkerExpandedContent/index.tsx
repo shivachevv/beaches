@@ -1,13 +1,13 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-import { Beach } from "../../interfaces";
+import { BeachModel } from "../../interfaces";
 import { getBeachAvailabilityColor } from "../../utils/helpers";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import { styled } from "@mui/system";
 import BeachFlag from "../BeachFlag";
 
 type Props = {
-  beach: Beach;
+  beach: BeachModel;
 };
 
 const MarkerExpandedContent: React.FC<Props> = ({ beach }: Props) => {
