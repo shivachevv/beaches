@@ -1,16 +1,17 @@
 import { DATABASE_MODELS, ROLES } from "../utils/enums";
+import { renderToString } from "react-dom/server";
 
 type Role = ROLES.ADMIN | ROLES.BEACH_ADMIN | ROLES.TOURIST;
 
-export interface User {
-  id: number;
+export interface UserModel {
+  id: string;
   email: string;
   role: string;
   firstName: string;
   lastName: string;
 }
-export interface Beach {
-  id: number;
+export interface BeachModel {
+  id: string;
   name: string;
   description: string;
   coordinates: Coordinates;
@@ -20,6 +21,13 @@ export interface Beach {
   slug: string;
   beachAdminId: number;
   flag: string;
+}
+export interface ReservationModel {
+  id: string;
+  userId: string;
+  beachId: string;
+  sets: string | number;
+  time: Date;
 }
 
 export interface Coordinates {
@@ -32,15 +40,15 @@ export interface BeachPrices {
 }
 
 export interface AuthState {
-  currentUser: User | undefined;
+  currentUser: UserModel | undefined;
   isAuthenticated: boolean;
   error: string;
   loading: boolean;
 }
 
 export interface BeachesState {
-  beaches: Beach[] | undefined;
-  selectedBeach: Beach | null;
+  beaches: BeachModel[] | undefined;
+  selectedBeach: BeachModel | null;
 }
 export interface CommonState {
   navLinks: NavLink[];
@@ -51,7 +59,7 @@ export interface RootState {
   beaches: BeachesState;
 }
 export interface UserAuthResult {
-  user: User | undefined;
+  user: UserModel | undefined;
   error: boolean;
 }
 
@@ -65,8 +73,8 @@ export interface NavLink {
 }
 
 export interface Database {
-  users: User[];
-  // TODO: interface Beach
+  users: UserModel[];
+  // TODO: interface BeachModel
   beaches: Array<any>;
 }
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Box, Button } from "@mui/material";
-import { Beach } from "../../interfaces";
+import { BeachModel } from "../../interfaces";
 import beachIcon from "../../assets/images/beach-map-icon.png";
 import MarkerExpandedContent from "./../MarkerExpandedContent/";
 import { renderToString } from "react-dom/server";
@@ -8,9 +8,9 @@ import { renderToString } from "react-dom/server";
 type Props = {
   mapType: google.maps.MapTypeId;
   mapTypeControl?: boolean;
-  beaches: Beach[];
-  reserve: (beach: Beach) => void;
-  selectedBeach: Beach | null;
+  beaches: BeachModel[];
+  reserve: (beach: BeachModel) => void;
+  selectedBeach: BeachModel | null;
 };
 
 type GoogleLatLng = google.maps.LatLng;
@@ -73,13 +73,13 @@ const BeachMap: React.FC<Props> = ({
     setSelectedBeachCenter(selectedBeach);
   }, [selectedBeach]);
 
-  const addOnClickToReserveBtn = (beach: Beach): void => {
+  const addOnClickToReserveBtn = (beach: BeachModel): void => {
     document
       .querySelector("#info-window-reserve")
       ?.addEventListener("click", () => reserve(beach));
   };
 
-  const addInfoWindow = (beach: Beach, marker: Marker): void => {
+  const addInfoWindow = (beach: BeachModel, marker: Marker): void => {
     const newInfoWindow = new window.google.maps.InfoWindow({
       content: renderToString(<MarkerExpandedContent beach={beach} />),
     });
@@ -106,7 +106,7 @@ const BeachMap: React.FC<Props> = ({
     setListenerArray((listenerArray) => [...listenerArray, listener]);
   };
 
-  const addMarker = (beach: Beach): void => {
+  const addMarker = (beach: BeachModel): void => {
     const location = new google.maps.LatLng(
       beach.coordinates.lat,
       beach.coordinates.lng
@@ -121,7 +121,7 @@ const BeachMap: React.FC<Props> = ({
     marker.addListener("click", () => addInfoWindow(beach, marker));
   };
 
-  const setSelectedBeachCenter = (selectedBeach: Beach | null): void => {
+  const setSelectedBeachCenter = (selectedBeach: BeachModel | null): void => {
     if (selectedBeach) {
       map?.setCenter(
         new google.maps.LatLng(

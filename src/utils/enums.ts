@@ -12,6 +12,7 @@ export enum PAGE_TITLES {
 export enum DATABASE_MODELS {
   USERS = "users",
   BEACHES = "beaches",
+  RESERVATIONS = "reservations",
 }
 
 export enum BEACH_FLAGS {

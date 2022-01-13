@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { db } from "../../firebase";
-import { Beach, BeachesState } from "../../interfaces";
+import { BeachModel, BeachesState } from "../../interfaces";
 import { DATABASE_MODELS } from "../../utils/enums";
 
 export const INITIAL_STATE: BeachesState = {
@@ -12,23 +12,26 @@ export const INITIAL_STATE: BeachesState = {
 // export const selectCount = (state: RootState) => state.counter.value
 
 export const fetchBeaches = createAsyncThunk(
-  "beaches/fetchBeachesStatus",
+  "beaches/fetchBeaches",
   async () => {
     const querySnapshot = await db.collection(DATABASE_MODELS.BEACHES).get();
 
     const beaches = querySnapshot.docs.map((doc: any) => doc.data());
+
     return beaches;
   }
 );
 
 export const fetchSelectedBeach = createAsyncThunk(
   "auth/fetchSelectedBeach",
-  async (id: number) => {
+  async (id: string) => {
     const querySnapshot = await db
       .collection(DATABASE_MODELS.BEACHES)
       .where("id", "==", id)
       .get();
-    const [beach]: Beach[] = querySnapshot.docs.map((doc: any) => doc.data());
+    const [beach]: BeachModel[] = querySnapshot.docs.map((doc: any) =>
+      doc.data()
+    );
 
     return beach;
   }
@@ -41,13 +44,13 @@ const beachesSlice = createSlice({
   extraReducers: {
     [fetchBeaches.fulfilled.toString()]: (
       state: BeachesState,
-      action: PayloadAction<Beach[]>
+      action: PayloadAction<BeachModel[]>
     ) => {
       state.beaches = action.payload;
     },
     [fetchSelectedBeach.fulfilled.toString()]: (
       state: BeachesState,
-      action: PayloadAction<Beach>
+      action: PayloadAction<BeachModel>
     ) => {
       state.selectedBeach = action.payload;
     },

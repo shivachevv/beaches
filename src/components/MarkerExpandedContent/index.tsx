@@ -1,16 +1,13 @@
-import { Avatar, Box, Button, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import { Beach } from "../../interfaces";
-import {
-  getBeachAvailabilityColor,
-  getBeachFlagColor,
-} from "../../utils/helpers";
-import FlagIcon from "@mui/icons-material/Flag";
+import { Box, Typography } from "@mui/material";
+import React from "react";
+import { BeachModel } from "../../interfaces";
+import { getBeachAvailabilityColor } from "../../utils/helpers";
 import BeachAccessIcon from "@mui/icons-material/BeachAccess";
 import { styled } from "@mui/system";
+import BeachFlag from "../BeachFlag";
 
 type Props = {
-  beach: Beach;
+  beach: BeachModel;
 };
 
 const MarkerExpandedContent: React.FC<Props> = ({ beach }: Props) => {
@@ -48,15 +45,7 @@ const MarkerExpandedContent: React.FC<Props> = ({ beach }: Props) => {
           alignItems: "center",
         }}
       >
-        <Avatar
-          sx={{
-            bgcolor: getBeachFlagColor(beach?.flag),
-            width: 30,
-            height: 30,
-          }}
-        >
-          <FlagIcon fontSize="small" />
-        </Avatar>
+        <BeachFlag beach={beach} size="40px" />
         <Typography variant="button" sx={{ ml: 1, lineHeight: "inherit" }}>
           {beach?.name}
         </Typography>

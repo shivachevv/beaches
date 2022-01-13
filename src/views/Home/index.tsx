@@ -7,7 +7,7 @@ import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import ModalComponent from "./../../components/common/Modal/index";
 import LoginLandingPage from "../../components/LoginLandingPage";
 import { fetchBeaches } from "../../store/slices/beaches";
-import { Beach } from "../../interfaces";
+import { BeachModel } from "../../interfaces";
 import SelectedBeach from "../../components/SelectedBeach";
 import BeachMap from "../../components/BeachMap";
 import backgroundImage from "../../assets/images/2.jpg";
@@ -21,9 +21,7 @@ const Home: React.FC<Props> = (props: Props) => {
     dispatch(fetchBeaches());
   }, []);
 
-  const { isAuthenticated, currentUser } = useAppSelector(
-    (state) => state.auth
-  );
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
   const { beaches } = useAppSelector((state) => state.beaches);
 
   useEffect(() => {
@@ -51,8 +49,8 @@ const Home: React.FC<Props> = (props: Props) => {
     );
   };
 
-  const [selectedBeach, setSelectedBeach] = useState<Beach | null>(null);
-  const reserve = (beach: Beach | null): void => {
+  const [selectedBeach, setSelectedBeach] = useState<BeachModel | null>(null);
+  const reserve = (beach: BeachModel | null): void => {
     navigate(`/reserve/${beach?.id}`);
   };
 
@@ -77,7 +75,7 @@ const Home: React.FC<Props> = (props: Props) => {
         }}
       >
         <Autocomplete
-          getOptionLabel={(option: Beach) => option.name}
+          getOptionLabel={(option: BeachModel) => option.name}
           onChange={(_, value) => setSelectedBeach(value)}
           disablePortal
           options={beaches || []}
