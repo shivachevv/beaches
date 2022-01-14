@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import * as React from "react";
 import { login, logout } from "../../store/slices/auth";
 import { useAppDispatch } from "../../store/hooks";
@@ -20,14 +20,14 @@ const Navbar: React.FC = (props: Props) => {
     dispatch(logout());
   };
   return (
-    <div>
+    <Box sx={{ mt: "70px" }}>
       <Button variant="contained" onClick={loginUser}>
         Login
       </Button>
       <Button variant="contained" onClick={logoutUser}>
         Logout
       </Button>
-    </div>
+    </Box>
   );
 };
 
