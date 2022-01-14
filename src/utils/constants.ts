@@ -11,19 +11,26 @@ export const ERROR_MESSAGES = {
 
 export const NO_DATA_COLOR = "grey";
 
-// lets use const naming convention, const names should all caps with _ devider
-
 export const NAV_LINKS = [
   {
     path: "/",
     name: "Home",
+    requiresAuth: false,
   },
+  // {
+  //   path: "/login",
+  //   name: "Login",
+  //   showAlways: false,
+  //   showWhenLogged: false,
+  // },
   {
-    path: "/beaches",
-    name: "Beaches",
+    path: "/my-profile",
+    name: "My Profile",
+    requiresAuth: true,
   },
   {
     path: "/my-reservations",
-    name: "My Reservations",
+    name: "My Reservationss",
+    requiresAuth: true,
   },
 ];

@@ -1,13 +1,10 @@
 import * as React from "react";
 import {
   AppBar,
-  Avatar,
   Box,
   Button,
   Drawer,
   IconButton,
-  Menu,
-  MenuItem,
   Toolbar,
   Typography,
   useMediaQuery,
@@ -21,13 +18,13 @@ import { useStyles } from "../../../utils/helpers";
 import { NavLinksContext } from "../../../contexts/NavLinksProvider";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { logout } from "../../../store/slices/auth";
-import scss from "./index.module.scss";
+import { useContext, useState } from "react";
 
 type Props = Record<string, unknown>;
 
 const Navbar: React.FC<Props> = (props: Props) => {
   const navigate = useNavigate();
-  const navLinks = React.useContext(NavLinksContext);
+  const navLinks = useContext(NavLinksContext);
   const { isAuthenticated, currentUser } = useAppSelector(
     (state) => state.auth
   );
@@ -45,7 +42,7 @@ const Navbar: React.FC<Props> = (props: Props) => {
     top: isMobile ? "auto" : "0",
     bottom: isMobile ? "0" : "auto",
   };
-  const [isMobileNavOpen, setIsMobileNavOpen] = React.useState<boolean>(false);
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState<boolean>(false);
   const toggleMenu = ({ state }: { state: boolean }) => {
     setIsMobileNavOpen(state);
   };
@@ -62,55 +59,11 @@ const Navbar: React.FC<Props> = (props: Props) => {
   const getUserLetters = () =>
     `${currentUser?.firstName[0]} ${currentUser?.lastName[0]}`.toLocaleUpperCase();
 
-  const [userMenuAnchor, setUserMenuAnchor] =
-    React.useState<null | HTMLElement>(null);
-  const openUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setUserMenuAnchor(event.currentTarget);
-  };
-  const closeUserMenu = () => {
-    setUserMenuAnchor(null);
-  };
   const renderUserDetails = (): React.ReactNode => {
     return isAuthenticated ? (
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
-      >
-        <IconButton onClick={openUserMenu}>
-          <Avatar sx={{ bgcolor: "orange" }}>{getUserLetters()}</Avatar>
-        </IconButton>
-        <Menu
-          sx={{ mt: "45px" }}
-          id="menu-appbar"
-          anchorEl={userMenuAnchor}
-          anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "right",
-          }}
-          open={Boolean(userMenuAnchor)}
-          onClose={closeUserMenu}
-          className={isMobile ? scss.menu : ""}
-        >
-          <MenuItem onClick={closeUserMenu}>
-            <Link to="/my-profile" className={classes.link}>
-              My Profile
-            </Link>
-          </MenuItem>
-          <MenuItem onClick={closeUserMenu}>
-            <Button color="inherit" fullWidth onClick={logoutUser}>
-              Logout
-            </Button>
-          </MenuItem>
-        </Menu>
-      </Box>
+      <Button color="inherit" onClick={logoutUser}>
+        Logout
+      </Button>
     ) : (
       <Button color="inherit" onClick={() => navigate("/login")}>
         Login
