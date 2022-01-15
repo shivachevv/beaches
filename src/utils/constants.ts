@@ -6,6 +6,7 @@ export const DUMMY_PASSWORD = "I_killed_JFK";
 
 export const ERROR_MESSAGES = {
   WRONG_PASSWORD: "Password is not correct!",
+  INVALID_EMAIL: "Email is not valid!",
   NO_USER: "No logged in User!",
 };
 
@@ -17,12 +18,6 @@ export const NAV_LINKS = [
     name: "Home",
     requiresAuth: false,
   },
-  // {
-  //   path: "/login",
-  //   name: "Login",
-  //   showAlways: false,
-  //   showWhenLogged: false,
-  // },
   {
     path: "/my-profile",
     name: "My Profile",

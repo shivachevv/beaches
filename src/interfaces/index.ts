@@ -62,6 +62,7 @@ export interface RootState {
 export interface UserAuthResult {
   user: UserModel | undefined;
   error: boolean;
+  errorMessage: string;
 }
 
 export interface LoginData {

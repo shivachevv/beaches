@@ -18,16 +18,28 @@ export const INITIAL_STATE: AuthState = {
 export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }: LoginData) => {
-    if (password !== DUMMY_PASSWORD) {
-      return { user: undefined, error: true };
-    }
-    localStorage.setItem(LOCAL_STORAGE_KEY, email);
     const querySnapshot = await db
       .collection(DATABASE_MODELS.USERS)
       .where("email", "==", email)
       .get();
     const [user] = querySnapshot.docs.map((doc) => doc.data());
+    if (!user) {
+      return {
+        user: undefined,
+        error: true,
+        errorMessage: ERROR_MESSAGES.INVALID_EMAIL,
+      };
+    }
 
+    if (password !== DUMMY_PASSWORD) {
+      return {
+        user: undefined,
+        error: true,
+        errorMessage: ERROR_MESSAGES.WRONG_PASSWORD,
+      };
+    }
+
+    localStorage.setItem(LOCAL_STORAGE_KEY, email);
     return { user, error: false };
   }
 );
@@ -73,7 +85,7 @@ const authSlice = createSlice({
       action: PayloadAction<UserAuthResult>
     ) => {
       if (action.payload.error) {
-        state.error = ERROR_MESSAGES.WRONG_PASSWORD;
+        state.error = action.payload.errorMessage;
         return;
       }
 
