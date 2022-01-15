@@ -1,5 +1,10 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { AuthState, LoginData, UserAuthResult } from "../../interfaces";
+import {
+  AuthState,
+  LoginData,
+  RegisterData,
+  UserAuthResult,
+} from "../../interfaces";
 import {
   DUMMY_PASSWORD,
   LOCAL_STORAGE_KEY,
@@ -7,6 +12,7 @@ import {
 } from "../../utils/constants";
 import { DATABASE_MODELS } from "../../utils/enums";
 import { db } from "../../firebase";
+import { User } from "../../models/users";
 
 export const INITIAL_STATE: AuthState = {
   currentUser: undefined,
@@ -41,6 +47,24 @@ export const login = createAsyncThunk(
 
     localStorage.setItem(LOCAL_STORAGE_KEY, email);
     return { user, error: false };
+  }
+);
+
+export const register = createAsyncThunk(
+  "auth/register",
+  async ({ email, role, firstName, lastName, deposit }: RegisterData) => {
+    const newUser = new User({ email, role, firstName, lastName, deposit });
+    const createdUser = await newUser.create();
+    if (!createdUser) {
+      return {
+        user: undefined,
+        error: true,
+        errorMessage: ERROR_MESSAGES.NO_USER_CREATED,
+      };
+    }
+
+    localStorage.setItem(LOCAL_STORAGE_KEY, email);
+    return { createdUser, error: false };
   }
 );
 
@@ -81,6 +105,18 @@ const authSlice = createSlice({
   },
   extraReducers: {
     [login.fulfilled.toString()]: (
+      state: AuthState,
+      action: PayloadAction<UserAuthResult>
+    ) => {
+      if (action.payload.error) {
+        state.error = action.payload.errorMessage;
+        return;
+      }
+
+      state.currentUser = action.payload.user;
+      location.reload();
+    },
+    [register.fulfilled.toString()]: (
       state: AuthState,
       action: PayloadAction<UserAuthResult>
     ) => {

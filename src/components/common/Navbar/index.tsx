@@ -1,6 +1,7 @@
 import * as React from "react";
 import {
   AppBar,
+  Avatar,
   Box,
   Button,
   Drawer,
@@ -61,13 +62,29 @@ const Navbar: React.FC<Props> = (props: Props) => {
 
   const renderUserDetails = (): React.ReactNode => {
     return isAuthenticated ? (
-      <Button color="inherit" onClick={logoutUser}>
-        Logout
-      </Button>
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <Button color="inherit" onClick={logoutUser}>
+          Logout
+        </Button>
+        <Avatar sx={{ bgcolor: "orange", ml: 2 }}>{getUserLetters()}</Avatar>
+      </Box>
     ) : (
-      <Button color="inherit" onClick={() => navigate("/login")}>
-        Login
-      </Button>
+      <Box
+        sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
+      >
+        <Button color="inherit" onClick={() => navigate("/login")}>
+          Login
+        </Button>
+        <Button
+          color="inherit"
+          onClick={() => navigate("/register")}
+          sx={{ ml: 1 }}
+        >
+          Register
+        </Button>
+      </Box>
     );
   };
 
@@ -99,7 +116,7 @@ const Navbar: React.FC<Props> = (props: Props) => {
             },
           }}
         >
-          <Box>{renderNavLinks({ isMobile: false })}</Box>
+          <Box sx={{ pl: 2 }}>{renderNavLinks({ isMobile: false })}</Box>
           {!isMobile && renderUserDetails()}
         </Box>
         <Box
