@@ -11,6 +11,13 @@ export interface UserModel {
   lastName: string;
   deposit: number;
 }
+export interface RegisterData {
+  email: string;
+  role: string;
+  firstName: string;
+  lastName: string;
+  deposit: number;
+}
 export interface BeachModel {
   id: string;
   name: string;

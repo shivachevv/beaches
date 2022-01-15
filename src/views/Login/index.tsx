@@ -23,18 +23,6 @@ const Login: React.FC = (props: Props) => {
     dispatch(login(data));
   };
 
-  // TODO: USE FOR REGISTER
-
-  // const emailIsUnique = async (email: string): Promise<boolean> => {
-  //   const querySnapshot = await db
-  //     .collection(DATABASE_MODELS.USERS)
-  //     .where("email", "==", email)
-  //     .get();
-  //   const [user] = querySnapshot.docs.map((doc) => doc.data());
-
-  //   return !user;
-  // };
-
   const getEmailErrorMessage = () => {
     if (errors?.email?.type === "required") {
       return "Email is required!";
