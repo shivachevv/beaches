@@ -15,7 +15,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../assets/images/beaches_logo.png";
 import styles from "./styles";
-import { useStyles } from "../../../utils/helpers";
+import { getUserLetters, useStyles } from "../../../utils/helpers";
 import { NavLinksContext } from "../../../contexts/NavLinksProvider";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { logout } from "../../../store/slices/auth";
@@ -57,18 +57,17 @@ const Navbar: React.FC<Props> = (props: Props) => {
       </Link>
     ));
 
-  const getUserLetters = () =>
-    `${currentUser?.firstName[0]} ${currentUser?.lastName[0]}`.toLocaleUpperCase();
-
   const renderUserDetails = (): React.ReactNode => {
-    return isAuthenticated ? (
+    return isAuthenticated && currentUser ? (
       <Box
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Button color="inherit" onClick={logoutUser}>
           Logout
         </Button>
-        <Avatar sx={{ bgcolor: "orange", ml: 2 }}>{getUserLetters()}</Avatar>
+        <Avatar sx={{ bgcolor: "orange", ml: 2 }}>
+          {getUserLetters(currentUser)}
+        </Avatar>
       </Box>
     ) : (
       <Box
