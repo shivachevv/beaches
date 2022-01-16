@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { GOOGLE_MAPS_API_KEY, NO_DATA_COLOR } from "./constants";
 import { BEACH_FLAGS } from "./enums";
+import { UserModel } from "./../interfaces/index";
 
 type Flag = BEACH_FLAGS.GREEN | BEACH_FLAGS.YELLOW | BEACH_FLAGS.RED;
 
@@ -86,3 +87,6 @@ export const loadMapApi = () => {
 
   return googleMapScript;
 };
+
+export const getUserLetters = (user: UserModel) =>
+  `${user?.firstName[0]} ${user?.lastName[0]}`.toLocaleUpperCase();

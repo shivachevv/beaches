@@ -20,6 +20,8 @@ import AirlineSeatFlatIcon from "@mui/icons-material/AirlineSeatFlat";
 import { Reservation } from "../../models/reservation";
 import BeachFlag from "../../components/BeachFlag";
 import { Beach } from "./../../models/beaches";
+import { User } from "../../models/users";
+import { setCurrentUser } from "../../store/slices/auth";
 
 type Props = Record<string, unknown>;
 
@@ -76,7 +78,12 @@ const ReserveSpot: React.FC<Props> = (props: Props) => {
       });
       await reservation.create();
 
+      await new User(currentUser).update({
+        deposit: +currentUser.deposit - +getPrices().total,
+      });
+
       dispatch(fetchSelectedBeach(beachId));
+      dispatch(setCurrentUser());
     }
   }, [activeStep]);
 

@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "../../views/Home";
 import Login from "../../views/Login";
+import MyProfile from "../../views/MyProfile";
 import Register from "../../views/Register";
 import PrivateRoute from "../guards/PrivateRoute";
 import ReserveSpot from "./../../views/ReserveSpot/index";
@@ -26,6 +27,7 @@ const RoutesWrapper: React.FC<Props> = (props: Props) => {
       <Route path="/reserve/:beachId" element={<ReserveSpot />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
+      <Route path="/my-profile" element={<MyProfile />} />
     </Routes>
   );
 };
