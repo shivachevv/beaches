@@ -47,7 +47,7 @@ const MyProfile: any = (props: Props) => {
     return (
       <Box
         sx={{
-          mt: "100px",
+          pt: 2,
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -66,6 +66,7 @@ const MyProfile: any = (props: Props) => {
         )}
         <Box
           sx={{
+            mt: 2,
             display: "flex",
             justifyContent: "center",
             alignItems: "center",

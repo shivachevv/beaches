@@ -25,10 +25,12 @@ export const NAV_LINKS = [
     requiresAuth: true,
   },
   {
-    path: "/my-reservations",
-    name: "My Reservationss",
+    path: "/reservations/:userId",
+    name: "My Reservations",
     requiresAuth: true,
   },
 ];
 
 export const ROLES = ["admin", "tourist", "beach_admin"];
+
+export const RESERVATION_PERIOD = 18000000;

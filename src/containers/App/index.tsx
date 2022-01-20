@@ -6,6 +6,7 @@ import { useAppDispatch } from "../../store/hooks";
 import { Container, CssBaseline } from "@mui/material";
 import NavLinksProvider from "../../contexts/NavLinksProvider";
 import { loadMapApi } from "../../utils/helpers";
+import backgroundImage from "../../assets/images/2.jpg";
 
 type Props = Record<string, unknown>;
 
@@ -23,7 +24,17 @@ const App: React.FC<Props> = (props: Props) => {
   }, []);
 
   return (
-    <Container maxWidth={false} sx={{ minHeight: "100vh" }} disableGutters>
+    <Container
+      maxWidth={false}
+      sx={{
+        minHeight: "100vh",
+        padding: "70px 0 0 0",
+        backgroundSize: "cover",
+        backgroundImage: `url(${backgroundImage})`,
+        boxShadow: "inset 0 0 0 2000px rgb(255 255 255 / 49%)",
+      }}
+      disableGutters
+    >
       <NavLinksProvider>
         <CssBaseline />
         <Navbar />

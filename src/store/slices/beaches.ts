@@ -32,6 +32,7 @@ export const fetchSelectedBeach = createAsyncThunk(
     const [beach]: BeachModel[] = querySnapshot.docs.map((doc: any) =>
       doc.data()
     );
+    console.log(beach);
 
     return beach;
   }

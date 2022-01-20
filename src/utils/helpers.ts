@@ -1,7 +1,13 @@
 import { makeStyles } from "@material-ui/core/styles";
 import { GOOGLE_MAPS_API_KEY, NO_DATA_COLOR } from "./constants";
 import { BEACH_FLAGS } from "./enums";
-import { UserModel } from "./../interfaces/index";
+import {
+  BeachModel,
+  NavLink,
+  ReservationModel,
+  ResWithBeach,
+  UserModel,
+} from "./../interfaces/index";
 
 type Flag = BEACH_FLAGS.GREEN | BEACH_FLAGS.YELLOW | BEACH_FLAGS.RED;
 
@@ -90,3 +96,26 @@ export const loadMapApi = () => {
 
 export const getUserLetters = (user: UserModel) =>
   `${user?.firstName[0]} ${user?.lastName[0]}`.toLocaleUpperCase();
+
+export const addUserId = (navLinks: NavLink[], id: string) => {
+  return navLinks.map((link) => {
+    const newPath = link.path.replace(":userId", id);
+    return {
+      ...link,
+      path: newPath,
+    };
+  });
+};
+
+export const addBeach = (
+  reservations: ReservationModel[],
+  beaches: BeachModel[]
+): ResWithBeach[] => {
+  return reservations.map((res) => {
+    const beach = beaches.find((beach) => beach.id === res.beachId);
+    return {
+      ...res,
+      beach,
+    };
+  });
+};

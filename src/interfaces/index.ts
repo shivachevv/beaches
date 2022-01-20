@@ -34,8 +34,13 @@ export interface ReservationModel {
   id: string;
   userId: string;
   beachId: string;
+  beach: any;
   sets: string | number;
-  time: Date;
+  time: string;
+}
+
+export interface ResWithBeach extends ReservationModel {
+  beach: BeachModel | undefined;
 }
 
 export interface Coordinates {
@@ -58,6 +63,9 @@ export interface BeachesState {
   beaches: BeachModel[] | undefined;
   selectedBeach: BeachModel | null;
 }
+export interface ReservationsState {
+  myReservations: ReservationModel[] | undefined;
+}
 export interface CommonState {
   navLinks: NavLink[];
 }
@@ -65,6 +73,7 @@ export interface CommonState {
 export interface RootState {
   auth: AuthState;
   beaches: BeachesState;
+  reservations: ReservationsState;
 }
 export interface UserAuthResult {
   user: UserModel | undefined;
@@ -79,6 +88,7 @@ export interface LoginData {
 export interface NavLink {
   path: string;
   name: string;
+  requiresAuth: boolean;
 }
 
 export interface Database {

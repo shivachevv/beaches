@@ -1,12 +1,13 @@
+import { Box } from "@mui/material";
 import React from "react";
 import RoutesWrapper from "../../routes/RoutersWrapper/index";
 
-const ContentWrapper:React.FC = ()=> {
+const ContentWrapper: React.FC = () => {
   return (
-    <div>
+    <Box sx={{ mt: "200px" }}>
       <RoutesWrapper />
-    </div>
+    </Box>
   );
-}
+};
 
 export default ContentWrapper;
