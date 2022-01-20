@@ -10,7 +10,6 @@ import { fetchBeaches } from "../../store/slices/beaches";
 import { BeachModel } from "../../interfaces";
 import SelectedBeach from "../../components/SelectedBeach";
 import BeachMap from "../../components/BeachMap";
-import backgroundImage from "../../assets/images/2.jpg";
 
 type Props = Record<string, unknown>;
 
@@ -61,9 +60,6 @@ const Home: React.FC<Props> = (props: Props) => {
       sx={{
         height: "100vh",
         pt: 2,
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: "cover",
-        boxShadow: "inset 0 0 0 2000px rgb(255 255 255 / 49%)",
       }}
     >
       {/* {renderLoginModal()} */}

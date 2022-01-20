@@ -74,7 +74,7 @@ const ReserveSpot: React.FC<Props> = (props: Props) => {
         userId: currentUser?.id,
         beachId: selectedBeach.id,
         sets,
-        time: new Date(),
+        time: new Date().toString(),
       });
       await reservation.create();
 
