@@ -17,17 +17,25 @@ import EditIcon from "@mui/icons-material/Edit";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import BeachFlag from "./../BeachFlag/index";
 import { getBeachAvailabilityColor } from "../../utils/helpers";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   beach: BeachModel | null;
   reserve: (beach: BeachModel | null) => void;
+  isBeachAdmin: boolean;
 };
 
-const SelectedBeach: React.FC<Props> = ({ beach, reserve }: Props) => {
+const SelectedBeach: React.FC<Props> = ({
+  beach,
+  reserve,
+  isBeachAdmin,
+}: Props) => {
   const [expanded, setExpanded] = useState(false);
   const handleExpand = () => {
     setExpanded(!expanded);
   };
+
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -92,9 +100,11 @@ const SelectedBeach: React.FC<Props> = ({ beach, reserve }: Props) => {
               </Box>
             </Box>
             <Box>
-              <IconButton>
-                <EditIcon />
-              </IconButton>
+              {isBeachAdmin && (
+                <IconButton onClick={() => navigate(`/beaches/${beach?.id}`)}>
+                  <EditIcon />
+                </IconButton>
+              )}
               <IconButton onClick={handleExpand}>
                 <ExpandMoreIcon
                   sx={{

@@ -1,7 +1,4 @@
-import { DATABASE_MODELS, ROLES } from "../utils/enums";
-import { renderToString } from "react-dom/server";
-
-type Role = ROLES.ADMIN | ROLES.BEACH_ADMIN | ROLES.TOURIST;
+import { DATABASE_MODELS } from "../utils/enums";
 
 export interface UserModel {
   id: string;
@@ -62,6 +59,7 @@ export interface AuthState {
 export interface BeachesState {
   beaches: BeachModel[] | undefined;
   selectedBeach: BeachModel | null;
+  error: string;
 }
 export interface ReservationsState {
   myReservations: ReservationModel[] | undefined;

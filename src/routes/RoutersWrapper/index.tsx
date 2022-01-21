@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import EditBeach from "../../views/EditBeach";
 import Home from "../../views/Home";
 import Login from "../../views/Login";
 import MyProfile from "../../views/MyProfile";
@@ -30,6 +31,7 @@ const RoutesWrapper: React.FC<Props> = (props: Props) => {
       <Route path="/register" element={<Register />} />
       <Route path="/my-profile" element={<MyProfile />} />
       <Route path="/reservations/:userId" element={<MyReservations />} />
+      <Route path="/beaches/:beachId" element={<EditBeach />} />
     </Routes>
   );
 };

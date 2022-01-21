@@ -1,11 +1,11 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { db } from "../../firebase";
 import { BeachModel, BeachesState } from "../../interfaces";
-import { DATABASE_MODELS } from "../../utils/enums";
+import { Beach } from "../../models/beaches";
 
 export const INITIAL_STATE: BeachesState = {
   beaches: [],
   selectedBeach: null,
+  error: "",
 };
 
 // Other code such as selectors can use the imported `RootState` type
@@ -14,9 +14,7 @@ export const INITIAL_STATE: BeachesState = {
 export const fetchBeaches = createAsyncThunk(
   "beaches/fetchBeaches",
   async () => {
-    const querySnapshot = await db.collection(DATABASE_MODELS.BEACHES).get();
-
-    const beaches = querySnapshot.docs.map((doc: any) => doc.data());
+    const beaches = await Beach.findAll();
 
     return beaches;
   }
@@ -25,14 +23,11 @@ export const fetchBeaches = createAsyncThunk(
 export const fetchSelectedBeach = createAsyncThunk(
   "auth/fetchSelectedBeach",
   async (id: string) => {
-    const querySnapshot = await db
-      .collection(DATABASE_MODELS.BEACHES)
-      .where("id", "==", id)
-      .get();
-    const [beach]: BeachModel[] = querySnapshot.docs.map((doc: any) =>
-      doc.data()
-    );
-    console.log(beach);
+    const [beach] = await Beach.find({
+      key: "id",
+      operator: "==",
+      value: id,
+    });
 
     return beach;
   }

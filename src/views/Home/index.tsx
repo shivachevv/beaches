@@ -20,7 +20,9 @@ const Home: React.FC<Props> = (props: Props) => {
     dispatch(fetchBeaches());
   }, []);
 
-  const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const { isAuthenticated, currentUser } = useAppSelector(
+    (state) => state.auth
+  );
   const { beaches } = useAppSelector((state) => state.beaches);
 
   useEffect(() => {
@@ -53,6 +55,8 @@ const Home: React.FC<Props> = (props: Props) => {
     navigate(`/reserve/${beach?.id}`);
   };
 
+  const isBeachAdmin = currentUser?.id === selectedBeach?.beachAdminId;
+
   return (
     <Container
       disableGutters
@@ -82,7 +86,11 @@ const Home: React.FC<Props> = (props: Props) => {
         />
       </Box>
       {selectedBeach ? (
-        <SelectedBeach beach={selectedBeach} reserve={reserve} />
+        <SelectedBeach
+          beach={selectedBeach}
+          reserve={reserve}
+          isBeachAdmin={isBeachAdmin}
+        />
       ) : (
         ""
       )}
