@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Reservation } from "../../models/reservation";
 import { ReservationsState, ReservationModel } from "../../interfaces";
-import { DATABASE_MODELS } from "../../utils/enums";
 
 export const INITIAL_STATE: ReservationsState = {
   myReservations: [],
@@ -18,26 +17,10 @@ export const fetchMyReservations = createAsyncThunk(
       operator: "==",
       value: userId,
     });
-    console.log(reservations);
 
     return reservations;
   }
 );
-
-// export const fetchSelectedBeach = createAsyncThunk(
-//   "auth/fetchSelectedBeach",
-//   async (id: string) => {
-//     const querySnapshot = await db
-//       .collection(DATABASE_MODELS.BEACHES)
-//       .where("id", "==", id)
-//       .get();
-//     const [beach]: BeachModel[] = querySnapshot.docs.map((doc: any) =>
-//       doc.data()
-//     );
-
-//     return beach;
-//   }
-// );
 
 const reservationsSlice = createSlice({
   name: "reservations",
@@ -50,12 +33,6 @@ const reservationsSlice = createSlice({
     ) => {
       state.myReservations = action.payload;
     },
-    // [fetchSelectedBeach.fulfilled.toString()]: (
-    //   state: BeachesState,
-    //   action: PayloadAction<BeachModel>
-    // ) => {
-    //   state.selectedBeach = action.payload;
-    // },
   },
 });
 

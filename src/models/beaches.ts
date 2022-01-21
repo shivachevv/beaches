@@ -11,6 +11,21 @@ interface BeachClass extends BeachModel {
   ): Promise<firebase.firestore.DocumentData | undefined>;
 }
 
+interface FindBeachParams {
+  key: "id" | "name" | "capacity" | "available";
+  operator:
+    | "<="
+    | "=="
+    | ">"
+    | ">="
+    | "!="
+    | "array-contains"
+    | "array-contains-any"
+    | "in"
+    | "not-in";
+  value: string;
+}
+
 export class Beach implements BeachClass {
   id: string;
   name: string;
@@ -55,6 +70,25 @@ export class Beach implements BeachClass {
     this.flag = flag;
   }
 
+  static async find(params: FindBeachParams) {
+    const querySnapshot = await db
+      .collection(DATABASE_MODELS.BEACHES)
+      .where(params.key, params.operator, params.value)
+      .get();
+
+    const beaches = querySnapshot.docs.map((doc) => doc.data());
+
+    return beaches;
+  }
+
+  static async findAll() {
+    const querySnapshot = await db.collection(DATABASE_MODELS.BEACHES).get();
+
+    const beaches = querySnapshot.docs.map((doc) => doc.data());
+
+    return beaches;
+  }
+
   async create(): Promise<firebase.firestore.DocumentData | undefined> {
     const createSnapshot = await db.collection(DATABASE_MODELS.BEACHES).add({
       id: this.id,
@@ -95,6 +129,7 @@ export class Beach implements BeachClass {
       .get();
 
     const updated = querySnapshot.data();
+    console.log(updated);
 
     return updated;
   }
