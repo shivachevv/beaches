@@ -101,6 +101,7 @@ const authSlice = createSlice({
     setIsAuthenticated: (state) => {
       const isLogged = localStorage.getItem(LOCAL_STORAGE_KEY);
       state.isAuthenticated = !!isLogged;
+      state.loading = false;
     },
   },
   extraReducers: {

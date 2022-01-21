@@ -5,18 +5,15 @@ import styles from "./index.module.scss";
 import { login } from "../../store/slices/auth";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { LoginData } from "../../interfaces";
-
-type Props = Record<string, unknown>;
 interface LoginInput {
   email: string;
   password: string;
 }
 
-const Login: React.FC = (props: Props) => {
+const Login: React.FC = () => {
   const { error } = useAppSelector((state) => state.auth);
 
-  const { control, handleSubmit, register, formState, setError } =
-    useForm<LoginInput>();
+  const { control, handleSubmit, register, formState } = useForm<LoginInput>();
   const { errors } = formState;
   const dispatch = useAppDispatch();
   const loginUser: SubmitHandler<LoginInput> = (data: LoginData) => {

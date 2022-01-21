@@ -129,7 +129,6 @@ export class Beach implements BeachClass {
       .get();
 
     const updated = querySnapshot.data();
-    console.log(updated);
 
     return updated;
   }
