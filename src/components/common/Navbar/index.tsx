@@ -60,6 +60,7 @@ const Navbar: React.FC<Props> = (props: Props) => {
   const renderUserDetails = (): React.ReactNode => {
     return isAuthenticated && currentUser ? (
       <Box
+        data-testid="user-details"
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Button color="inherit" onClick={logoutUser}>
@@ -71,6 +72,7 @@ const Navbar: React.FC<Props> = (props: Props) => {
       </Box>
     ) : (
       <Box
+        data-testid="user-details"
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
         <Button color="inherit" onClick={() => navigate("/login")}>

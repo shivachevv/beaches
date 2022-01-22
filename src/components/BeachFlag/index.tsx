@@ -12,13 +12,14 @@ type Props = {
 const BeachFlag: React.FC<Props> = ({ beach, size }: Props) => {
   return (
     <Avatar
+      data-testid="avatar"
       sx={{
         bgcolor: getBeachFlagColor(beach?.flag),
         width: size,
         height: size,
       }}
     >
-      <FlagIcon />
+      <FlagIcon data-testid="flag-icon" />
     </Avatar>
   );
 };
