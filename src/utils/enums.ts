@@ -6,7 +6,12 @@ export enum ROLES {
 
 export enum PAGE_TITLES {
   HOME = "Beaches Home",
-  RESERVE_SPOT = "Reserve your spot!",
+  EDIT_BEACH = "Edit Beach",
+  LOGIN = "Beaches Login",
+  REGISTER = "Beaches Register",
+  MY_PROFILE = "My Profile",
+  MY_RESERVATIONS = "My Reservations",
+  RESERVE_SPOT = "Reserve Your Spot",
 }
 
 export enum DATABASE_MODELS {

@@ -14,8 +14,8 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../../../assets/images/beaches_logo.png";
-import styles from "./styles";
-import { getUserLetters, useStyles } from "../../../utils/helpers";
+import styles from "./index.module.scss";
+import { getUserLetters } from "../../../utils/helpers";
 import { NavLinksContext } from "../../../contexts/NavLinksProvider";
 import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { logout } from "../../../store/slices/auth";
@@ -34,7 +34,6 @@ const Navbar: React.FC = () => {
     dispatch(logout());
   };
 
-  const classes = useStyles(styles);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const menuPosition = {
@@ -48,7 +47,7 @@ const Navbar: React.FC = () => {
 
   const renderNavLinks = ({ isMobile }: { isMobile: boolean }) =>
     navLinks.map((page) => (
-      <Link to={page.path} key={page.path} className={classes.link}>
+      <Link to={page.path} key={page.path} className={styles.link}>
         <Button sx={{ my: 2, color: isMobile ? "" : "white" }}>
           {page.name}
         </Button>
@@ -99,6 +98,7 @@ const Navbar: React.FC = () => {
 
   return (
     <AppBar
+      className="test"
       position="absolute"
       color="primary"
       sx={{ top: menuPosition.top, bottom: menuPosition.bottom }}
