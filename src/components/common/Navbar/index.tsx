@@ -21,9 +21,7 @@ import { useAppDispatch, useAppSelector } from "../../../store/hooks";
 import { logout } from "../../../store/slices/auth";
 import { useContext, useState } from "react";
 
-type Props = Record<string, unknown>;
-
-const Navbar: React.FC<Props> = (props: Props) => {
+const Navbar: React.FC = () => {
   const navigate = useNavigate();
   const navLinks = useContext(NavLinksContext);
   const { isAuthenticated, currentUser } = useAppSelector(

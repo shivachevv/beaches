@@ -3,10 +3,10 @@ import { Navigate } from "react-router-dom";
 
 import { useAppSelector } from "../../store/hooks";
 
-const PrivateRoute = ({ children }: { children: any }) => {
+const RedirectWhenLogged = ({ children }: { children: any }) => {
   const { isAuthenticated } = useAppSelector((state) => state.auth);
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+  return isAuthenticated ? <Navigate to="/" /> : children;
 };
 
-export default PrivateRoute;
+export default RedirectWhenLogged;

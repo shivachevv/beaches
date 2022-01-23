@@ -14,15 +14,13 @@ import { setCurrentUser } from "../../store/slices/auth";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { User } from "./../../models/users";
 import { getUserLetters } from "../../utils/helpers";
-
-type Props = Record<string, unknown>;
 interface ProfileInput {
   firstName: string;
   lastName: string;
   deposit: number;
 }
 
-const MyProfile: any = (props: Props) => {
+const MyProfile: any = () => {
   const { currentUser } = useAppSelector((state) => state.auth);
 
   const { error } = useAppSelector((state) => state.auth);
