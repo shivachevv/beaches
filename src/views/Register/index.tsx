@@ -18,6 +18,9 @@ import { RegisterData } from "../../interfaces";
 import { DATABASE_MODELS } from "../../utils/enums";
 import { db } from "../../firebase";
 import { ROLES } from "./../../utils/constants";
+import { setPageTitle } from "../../utils/helpers";
+import { PAGE_TITLES } from "../../utils/enums";
+import { useEffect } from "react";
 
 interface RegisterInput {
   email: string;
@@ -28,6 +31,10 @@ interface RegisterInput {
 }
 
 const Register: React.FC = () => {
+  useEffect(() => {
+    setPageTitle(PAGE_TITLES.REGISTER);
+  }, []);
+
   const { error } = useAppSelector((state) => state.auth);
 
   const { control, handleSubmit, register, formState } =

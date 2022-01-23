@@ -54,7 +54,7 @@ export class User implements UserClass {
     this.deposit = deposit;
   }
 
-  static async find({ params }: { params: FindUserParams }) {
+  static async find(params: FindUserParams) {
     const querySnapshot = await db
       .collection(DATABASE_MODELS.USERS)
       .where(params.key, params.operator, params.value)

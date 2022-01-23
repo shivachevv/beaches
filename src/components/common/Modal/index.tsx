@@ -3,7 +3,6 @@ import { Backdrop, Box, Fade, Modal } from "@mui/material";
 
 type Props = {
   children?: any;
-  open: any;
   close: any;
   isOpen: boolean;
   modalStyles?: Record<string, string>;
@@ -29,6 +28,7 @@ const ModalComponent: React.FC<Props> = ({
 
   return (
     <Modal
+      data-testid="modal"
       aria-labelledby="transition-modal-title"
       aria-describedby="transition-modal-description"
       open={isOpen}
@@ -40,7 +40,9 @@ const ModalComponent: React.FC<Props> = ({
       }}
     >
       <Fade in={isOpen}>
-        <Box sx={style}>{children}</Box>
+        <Box data-testid="content-wrapper" sx={style}>
+          {children}
+        </Box>
       </Fade>
     </Modal>
   );

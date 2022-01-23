@@ -47,7 +47,6 @@ const App: React.FC = () => {
     return (
       <ModalComponent
         isOpen={loginModalOpen}
-        open={handleModalOpen}
         close={handleModalClose}
         modalStyles={{ width: "120vh", height: "90vh" }}
       >

@@ -10,8 +10,14 @@ import { ResWithBeach } from "../../interfaces";
 import { fetchBeaches } from "../../store/slices/beaches";
 import { addBeach } from "../../utils/helpers";
 import Loading from "../../components/common/Loading";
+import { setPageTitle } from "../../utils/helpers";
+import { PAGE_TITLES } from "../../utils/enums";
 
-const MyReservations: any = () => {
+const MyReservations: React.FC = () => {
+  useEffect(() => {
+    setPageTitle(PAGE_TITLES.MY_RESERVATIONS);
+  }, []);
+
   const { currentUser } = useAppSelector((state) => state.auth);
   const { myReservations } = useAppSelector((state) => state.reservations);
   const { beaches } = useAppSelector((state) => state.beaches);

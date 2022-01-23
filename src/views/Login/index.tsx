@@ -5,6 +5,9 @@ import styles from "./index.module.scss";
 import { login } from "../../store/slices/auth";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { LoginData } from "../../interfaces";
+import { PAGE_TITLES } from "../../utils/enums";
+import { setPageTitle } from "../../utils/helpers";
+import { useEffect } from "react";
 interface LoginInput {
   email: string;
   password: string;
@@ -12,6 +15,10 @@ interface LoginInput {
 
 const Login: React.FC = () => {
   const { error } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    setPageTitle(PAGE_TITLES.LOGIN);
+  }, []);
 
   const { control, handleSubmit, register, formState } = useForm<LoginInput>();
   const { errors } = formState;
