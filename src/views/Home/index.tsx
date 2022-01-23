@@ -27,8 +27,9 @@ const Home: React.FC<Props> = (props: Props) => {
 
   useEffect(() => {
     setPageTitle(PAGE_TITLES.HOME);
+    console.log(isAuthenticated);
 
-    if (isAuthenticated) {
+    if (!isAuthenticated) {
       handleModalOpen();
     }
   }, []);
@@ -41,7 +42,6 @@ const Home: React.FC<Props> = (props: Props) => {
     return (
       <ModalComponent
         isOpen={loginModalOpen}
-        open={handleModalOpen}
         close={handleModalClose}
         modalStyles={{ width: "120vh", height: "90vh" }}
       >
@@ -66,7 +66,7 @@ const Home: React.FC<Props> = (props: Props) => {
         pt: 2,
       }}
     >
-      {/* {renderLoginModal()} */}
+      {renderLoginModal()}
       <Box
         sx={{
           display: "flex",

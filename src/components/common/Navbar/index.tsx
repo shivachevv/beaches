@@ -60,25 +60,35 @@ const Navbar: React.FC<Props> = (props: Props) => {
   const renderUserDetails = (): React.ReactNode => {
     return isAuthenticated && currentUser ? (
       <Box
-        data-testid="user-details"
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Button color="inherit" onClick={logoutUser}>
+        <Button
+          data-testid="user-details-logout"
+          color="inherit"
+          onClick={logoutUser}
+        >
           Logout
         </Button>
-        <Avatar sx={{ bgcolor: "orange", ml: 2 }}>
+        <Avatar
+          data-testid="user-details-avatar"
+          sx={{ bgcolor: "orange", ml: 2 }}
+        >
           {getUserLetters(currentUser)}
         </Avatar>
       </Box>
     ) : (
       <Box
-        data-testid="user-details"
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Button color="inherit" onClick={() => navigate("/login")}>
+        <Button
+          data-testid="user-details-login"
+          color="inherit"
+          onClick={() => navigate("/login")}
+        >
           Login
         </Button>
         <Button
+          data-testid="user-details-register"
           color="inherit"
           onClick={() => navigate("/register")}
           sx={{ ml: 1 }}

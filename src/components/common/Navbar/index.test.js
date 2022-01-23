@@ -4,7 +4,8 @@ import Navbar from "./index";
 import { render, cleanup } from "@testing-library/react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
-import store from "../../../store";
+import store from "../../../utils/mockup-store";
+import { login } from "../../../utils/mockup-store";
 
 afterEach(cleanup);
 
@@ -22,9 +23,22 @@ it("should take a snapshot", () => {
   expect(asFragment(<Navbar />)).toMatchSnapshot();
 });
 
-it("should render user details", () => {
+it("should NOT render user details", () => {
   const component = render(renderedNav);
-  expect(component.getByTestId("user-details")).toHaveTextContent(
-    "LoginRegister"
+  expect(component.getByTestId("user-details-login")).toHaveTextContent(
+    "Login"
   );
+  expect(component.getByTestId("user-details-register")).toHaveTextContent(
+    "Register"
+  );
+});
+
+it("should render user details", async () => {
+  await store.dispatch(login());
+
+  const component = render(renderedNav);
+  expect(component.getByTestId("user-details-logout")).toHaveTextContent(
+    "Logout"
+  );
+  expect(component.getByTestId("user-details-avatar")).toHaveTextContent("T T");
 });

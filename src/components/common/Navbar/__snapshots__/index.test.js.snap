@@ -71,10 +71,10 @@ exports[`should take a snapshot 1`] = `
         </div>
         <div
           class="MuiBox-root css-1n2mv2k"
-          data-testid="user-details"
         >
           <button
             class="MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButtonBase-root  css-1y942vo-MuiButtonBase-root-MuiButton-root"
+            data-testid="user-details-login"
             tabindex="0"
             type="button"
           >
@@ -85,6 +85,7 @@ exports[`should take a snapshot 1`] = `
           </button>
           <button
             class="MuiButton-root MuiButton-text MuiButton-textInherit MuiButton-sizeMedium MuiButton-textSizeMedium MuiButton-colorInherit MuiButtonBase-root  css-1gj1zu1-MuiButtonBase-root-MuiButton-root"
+            data-testid="user-details-register"
             tabindex="0"
             type="button"
           >
