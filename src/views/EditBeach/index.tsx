@@ -20,10 +20,9 @@ import { useEffect } from "react";
 import { BeachModel } from "../../interfaces";
 import { Beach } from "../../models/beaches";
 import { BEACH_FLAGS } from "../../utils/enums";
+import Loading from "../../components/common/Loading";
 
-type Props = Record<string, unknown>;
-
-const EditBeach: any = (props: Props) => {
+const EditBeach: any = () => {
   const { beachId }: { beachId: any } = useParams();
   const { selectedBeach } = useAppSelector((state) => state.beaches);
 
@@ -129,7 +128,7 @@ const EditBeach: any = (props: Props) => {
                   control={control}
                   defaultValue={selectedBeach?.flag}
                   rules={{ required: true }}
-                  render={({ field: { onChange, value } }) => (
+                  render={({ field: { onChange } }) => (
                     <Box>
                       <Select
                         sx={{ width: "100%", mt: 2 }}
@@ -287,8 +286,7 @@ const EditBeach: any = (props: Props) => {
     );
   }
 
-  // TODO: Loading
-  return "<Loading />";
+  return <Loading />;
 };
 
 export default EditBeach;

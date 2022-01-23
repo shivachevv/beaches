@@ -1,5 +1,5 @@
 import { db } from "../firebase";
-import { BeachModel, ReservationModel } from "../interfaces";
+import { ReservationModel } from "../interfaces";
 import { DATABASE_MODELS } from "../utils/enums";
 import firebase from "firebase/compat";
 
@@ -9,7 +9,6 @@ interface ReservationClass extends ReservationModel {
   sets: string | number;
   time: string;
   create(): Promise<firebase.firestore.DocumentData | undefined>;
-  //   update(): Promise<ReservationModel>;
 }
 
 interface FindReservationsParams {

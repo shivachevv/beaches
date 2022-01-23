@@ -4,51 +4,24 @@ import { PAGE_TITLES } from "../../utils/enums";
 import { setPageTitle } from "../../utils/helpers";
 import { Autocomplete, Box, Container, TextField } from "@mui/material";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
-import ModalComponent from "./../../components/common/Modal/index";
-import LoginLandingPage from "../../components/LoginLandingPage";
 import { fetchBeaches } from "../../store/slices/beaches";
 import { BeachModel } from "../../interfaces";
 import SelectedBeach from "../../components/SelectedBeach";
 import BeachMap from "../../components/BeachMap";
 
-type Props = Record<string, unknown>;
-
-const Home: React.FC<Props> = (props: Props) => {
+const Home: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(fetchBeaches());
   }, []);
 
-  const { isAuthenticated, currentUser } = useAppSelector(
-    (state) => state.auth
-  );
+  const { currentUser } = useAppSelector((state) => state.auth);
   const { beaches } = useAppSelector((state) => state.beaches);
 
   useEffect(() => {
     setPageTitle(PAGE_TITLES.HOME);
-
-    if (isAuthenticated) {
-      handleModalOpen();
-    }
   }, []);
-
-  // Logged out Modal details
-  const [loginModalOpen, setLoginModalOpen] = useState(false);
-  const handleModalOpen = () => setLoginModalOpen(true);
-  const handleModalClose = () => setLoginModalOpen(false);
-  const renderLoginModal = () => {
-    return (
-      <ModalComponent
-        isOpen={loginModalOpen}
-        open={handleModalOpen}
-        close={handleModalClose}
-        modalStyles={{ width: "120vh", height: "90vh" }}
-      >
-        <LoginLandingPage></LoginLandingPage>
-      </ModalComponent>
-    );
-  };
 
   const [selectedBeach, setSelectedBeach] = useState<BeachModel | null>(null);
   const reserve = (beach: BeachModel | null): void => {
@@ -66,7 +39,6 @@ const Home: React.FC<Props> = (props: Props) => {
         pt: 2,
       }}
     >
-      {/* {renderLoginModal()} */}
       <Box
         sx={{
           display: "flex",

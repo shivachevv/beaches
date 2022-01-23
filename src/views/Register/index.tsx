@@ -19,7 +19,6 @@ import { DATABASE_MODELS } from "../../utils/enums";
 import { db } from "../../firebase";
 import { ROLES } from "./../../utils/constants";
 
-type Props = Record<string, unknown>;
 interface RegisterInput {
   email: string;
   firstName: string;
@@ -28,10 +27,10 @@ interface RegisterInput {
   deposit: number;
 }
 
-const Register: React.FC = (props: Props) => {
+const Register: React.FC = () => {
   const { error } = useAppSelector((state) => state.auth);
 
-  const { control, handleSubmit, register, formState, setError } =
+  const { control, handleSubmit, register, formState } =
     useForm<RegisterInput>();
   const { errors } = formState;
   const dispatch = useAppDispatch();

@@ -11,10 +11,9 @@ type Props = {
 
 const ModalComponent: React.FC<Props> = ({
   children,
-  open,
   close,
   isOpen,
-  modalStyles
+  modalStyles,
 }: Props) => {
   const style = {
     position: "absolute" as const,
@@ -25,8 +24,7 @@ const ModalComponent: React.FC<Props> = ({
     height: modalStyles?.height || 400,
     bgcolor: "background.paper",
     boxShadow: 24,
-    overflow: "hidden"
-    // p: 4,
+    overflow: "hidden",
   };
 
   return (
