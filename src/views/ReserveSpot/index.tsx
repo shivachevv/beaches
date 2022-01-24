@@ -23,8 +23,6 @@ import { Beach } from "./../../models/beaches";
 import { User } from "../../models/users";
 import { setCurrentUser } from "../../store/slices/auth";
 
-type Props = Record<string, unknown>;
-
 const steps = [
   {
     label:
@@ -35,7 +33,7 @@ const steps = [
   },
 ];
 
-const ReserveSpot: React.FC<Props> = (props: Props) => {
+const ReserveSpot: React.FC = () => {
   const dispatch = useAppDispatch();
   const { selectedBeach } = useAppSelector((state) => state.beaches);
   const { currentUser } = useAppSelector((state) => state.auth);

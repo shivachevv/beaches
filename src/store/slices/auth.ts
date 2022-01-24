@@ -24,11 +24,11 @@ export const INITIAL_STATE: AuthState = {
 export const login = createAsyncThunk(
   "auth/login",
   async ({ email, password }: LoginData) => {
-    const querySnapshot = await db
-      .collection(DATABASE_MODELS.USERS)
-      .where("email", "==", email)
-      .get();
-    const [user] = querySnapshot.docs.map((doc) => doc.data());
+    const user = await User.find({
+      key: "email",
+      operator: "==",
+      value: email,
+    });
     if (!user) {
       return {
         user: undefined,
@@ -101,6 +101,7 @@ const authSlice = createSlice({
     setIsAuthenticated: (state) => {
       const isLogged = localStorage.getItem(LOCAL_STORAGE_KEY);
       state.isAuthenticated = !!isLogged;
+      state.loading = false;
     },
   },
   extraReducers: {

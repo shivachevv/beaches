@@ -5,18 +5,22 @@ import styles from "./index.module.scss";
 import { login } from "../../store/slices/auth";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { LoginData } from "../../interfaces";
-
-type Props = Record<string, unknown>;
+import { PAGE_TITLES } from "../../utils/enums";
+import { setPageTitle } from "../../utils/helpers";
+import { useEffect } from "react";
 interface LoginInput {
   email: string;
   password: string;
 }
 
-const Login: React.FC = (props: Props) => {
+const Login: React.FC = () => {
   const { error } = useAppSelector((state) => state.auth);
 
-  const { control, handleSubmit, register, formState, setError } =
-    useForm<LoginInput>();
+  useEffect(() => {
+    setPageTitle(PAGE_TITLES.LOGIN);
+  }, []);
+
+  const { control, handleSubmit, register, formState } = useForm<LoginInput>();
   const { errors } = formState;
   const dispatch = useAppDispatch();
   const loginUser: SubmitHandler<LoginInput> = (data: LoginData) => {

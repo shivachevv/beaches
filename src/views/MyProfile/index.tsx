@@ -14,16 +14,22 @@ import { setCurrentUser } from "../../store/slices/auth";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { User } from "./../../models/users";
 import { getUserLetters } from "../../utils/helpers";
+import { setPageTitle } from "../../utils/helpers";
+import { useEffect } from "react";
+import { PAGE_TITLES } from "../../utils/enums";
 
-type Props = Record<string, unknown>;
 interface ProfileInput {
   firstName: string;
   lastName: string;
   deposit: number;
 }
 
-const MyProfile: any = (props: Props) => {
+const MyProfile: any = () => {
   const { currentUser } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    setPageTitle(PAGE_TITLES.MY_PROFILE);
+  }, []);
 
   const { error } = useAppSelector((state) => state.auth);
 

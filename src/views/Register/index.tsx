@@ -18,8 +18,10 @@ import { RegisterData } from "../../interfaces";
 import { DATABASE_MODELS } from "../../utils/enums";
 import { db } from "../../firebase";
 import { ROLES } from "./../../utils/constants";
+import { setPageTitle } from "../../utils/helpers";
+import { PAGE_TITLES } from "../../utils/enums";
+import { useEffect } from "react";
 
-type Props = Record<string, unknown>;
 interface RegisterInput {
   email: string;
   firstName: string;
@@ -28,10 +30,14 @@ interface RegisterInput {
   deposit: number;
 }
 
-const Register: React.FC = (props: Props) => {
+const Register: React.FC = () => {
+  useEffect(() => {
+    setPageTitle(PAGE_TITLES.REGISTER);
+  }, []);
+
   const { error } = useAppSelector((state) => state.auth);
 
-  const { control, handleSubmit, register, formState, setError } =
+  const { control, handleSubmit, register, formState } =
     useForm<RegisterInput>();
   const { errors } = formState;
   const dispatch = useAppDispatch();

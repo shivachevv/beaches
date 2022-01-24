@@ -1,29 +1,23 @@
-import {
-  Alert,
-  Box,
-  Button,
-  Avatar,
-  TextField,
-  Typography,
-  InputAdornment,
-  Paper,
-} from "@mui/material";
+import { Box, Typography, Paper } from "@mui/material";
 import * as React from "react";
 import { setCurrentUser } from "../../store/slices/auth";
 import { useAppDispatch, useAppSelector } from "../../store/hooks";
 import { fetchMyReservations } from "../../store/slices/reservations";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import ReservationCard from "../../components/ReservationCard";
-import { BeachModel, ReservationModel, ResWithBeach } from "../../interfaces";
-import { DATABASE_MODELS } from "../../utils/enums";
-import { db } from "../../firebase";
+import { ResWithBeach } from "../../interfaces";
 import { fetchBeaches } from "../../store/slices/beaches";
 import { addBeach } from "../../utils/helpers";
+import Loading from "../../components/common/Loading";
+import { setPageTitle } from "../../utils/helpers";
+import { PAGE_TITLES } from "../../utils/enums";
 
-type Props = Record<string, unknown>;
+const MyReservations: React.FC = () => {
+  useEffect(() => {
+    setPageTitle(PAGE_TITLES.MY_RESERVATIONS);
+  }, []);
 
-const MyReservations: any = (props: Props) => {
   const { currentUser } = useAppSelector((state) => state.auth);
   const { myReservations } = useAppSelector((state) => state.reservations);
   const { beaches } = useAppSelector((state) => state.beaches);
@@ -108,8 +102,7 @@ const MyReservations: any = (props: Props) => {
     );
   }
 
-  // TODO: Loading
-  return "<Loading />";
+  return <Loading />;
 };
 
 export default MyReservations;
